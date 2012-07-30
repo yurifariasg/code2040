@@ -8,7 +8,6 @@ import org.code2040.dashboard.RecruitmentInfo
 class CandidateService {
 
     def createCandidate(String name, String school, String graduationDate, String email,
-		
 		String password, String phoneNumber, char gender, String race, String homeCountry,
 		int fellowYear, List<Question> questions, List<RecruitmentInfo> recruitmentInfo,
 		String homeState) {
