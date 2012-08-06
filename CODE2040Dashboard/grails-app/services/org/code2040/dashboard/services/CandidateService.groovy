@@ -4,6 +4,8 @@ import org.code2040.dashboard.Candidate
 import org.code2040.dashboard.ApplicationStep
 import org.code2040.dashboard.Question
 import org.code2040.dashboard.RecruitmentInfo
+import org.code2040.dashboard.CandidateStatus
+
 
 class CandidateService {
 
@@ -29,7 +31,7 @@ class CandidateService {
 		return c
     }
 	
-	def approveCandidate(int candidateID, int stepID) {
+	def approveCandidate(int candidateID) {
 		Candidate c = Candidate.get(candidateID)
 		if (c == null) return null
 		
@@ -38,7 +40,18 @@ class CandidateService {
 			ps.increment()
 			c.currentStep = ps
 			return c.save()
+		} else if (c.status == CandidateStatus.CANDIDATE) {
+			c.status = CandidateStatus.CURRENT_FELLOW
+		} else if (c.status == CandidateStatus.CURRENT_FELLOW) {
+			c.status = CandidateStatus.ALUMNI
 		}
+		return c
+	}
+	
+	def denyCandidate(int candidateID) {
+		Candidate c = Candidate.get(candidateID)
+		if (c == null) return null
+		c.status = CandidateStatus.DENIED
 		return c
 	}
 }

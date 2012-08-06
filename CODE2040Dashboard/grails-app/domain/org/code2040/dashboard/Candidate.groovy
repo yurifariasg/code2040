@@ -9,7 +9,7 @@ class Candidate {
 	String password
 	String phoneNumber
 	ApplicationStep currentStep = ApplicationStep.FIRST_STEP
-	// int status ?!?!?
+	CandidateStatus status = CandidateStatus.CANDIDATE
 	char gender
 	String race
 	String homeCountry
