@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>CODE:2040 - Applicant</title>
+		<link rel="stylesheet" type="text/css" href="login.css" />
+		<script type="text/javascript" src="login.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -9,9 +11,9 @@
 			<h2 class="page_title">Applicant</h2>
 		</div>
 		<div class="content">
-			<div class="log container">
+			<div class="log container" id="logCon">
 				<h3 class="log title">Login</h3>
-				<form class="log submission" action="mailto:acatton@gmail.com" method="post">
+				<form class="log submission" action="" method="post">
 					<div class="elem_containter">
 						<label for="log_email">Email:</label><br/>
 						<input type="text" id="log_email"/>
@@ -21,15 +23,15 @@
 						<input type="password" id="log_password">
 					</div>
 					<div class="elem_containter">	
-						<button>Sign up</button>
+						<a href="#" id="switch_reg" onclick="switchToRegistration()">Sign up</a>
 						<input type="submit" value="Login"/>
 					</div>
 				</form>
 
 			</div>
-			<div class="reg container">
+			<div class="reg container hidden" id="regCon">
 				<h3 class="reg title">Register</h3>
-				<form class="reg submission" action="create" method="post">
+				<form class="reg submission" action="" method="post">
 					<div class="elem_containter">
 						<label for="reg_email">Email:</label><br/>
 						<input type="text" id="reg_email" name="email"/>
@@ -43,7 +45,7 @@
 						<input type="password" id="reg_retype" name="retry"/>
 					</div>
 					<div class="elem_containter">
-						<button>Already registered?</button>
+						<a href="#" id="switch_log" onclick="switchToLogin()">Already registered?</a>
 						<input type="submit" value="Register">
 					</div>
 				</form>
