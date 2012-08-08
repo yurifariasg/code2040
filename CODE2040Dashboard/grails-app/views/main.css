@@ -7,3 +7,11 @@ body {
 div.hidden {
 	display:none;
 }
+
+div.float {
+	float: left;
+}
+
+div.row {
+	clear: both;
+}
