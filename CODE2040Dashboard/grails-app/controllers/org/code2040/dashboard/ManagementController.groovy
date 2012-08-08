@@ -1,5 +1,8 @@
 package org.code2040.dashboard
 
+import org.code2040.dashboard.Candidate
+import org.code2040.dashboard.ApplicationStep
+
 
 class ManagementController {
 	
@@ -10,7 +13,32 @@ class ManagementController {
     def index() {
 		int num = 0;
 		num = statisticsService.serviceMethod(num)
-		render "Hello! This is the Management Controller.. We're still working on it! (" + num + ")" 
+		render "Hello! This is the Management Controller.. We're still working on it!"
+	}
+	
+	def getNotifications() {
+		int step
+		try {
+			step = Integer.parseInt(params.step)
+		} catch (Exception e) {
+			step = -1
+		}
+		ApplicationStep appStep = null
+		switch (step) {
+			case 1: appStep = ApplicationStep.FIRST_STEP; break;
+			case 2: appStep = ApplicationStep.SECOND_STEP; break;
+			case 3: appStep = ApplicationStep.THIRD_STEP; break;
+			case 4: appStep = ApplicationStep.FOURTH_STEP; break;
+			default: appStep = null; break;
+		}
+		
+		if (appStep == null) {
+			render "This is not a valid step"
+			return
+		}
+		
+		List<Candidate> candidates = Candidate.findAllWhere(currentStep:appStep, status:CandidateStatus.CANDIDATE, needsReview:true)
+		render "There are " + candidates.size() + " looking forward in being approved on this step!"
 	}
 	
 	def approveCandidate() {

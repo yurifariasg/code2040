@@ -41,7 +41,7 @@
 			}
 
 			#page-body {
-				margin: 2em 1em 1.25em 18em;
+				margin: 2em 5em 1.25em 5em;
 			}
 
 			h2 {
@@ -82,35 +82,15 @@
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to CODE2040 Dashboard</h1>
-			<p>This will be our index page, we should link here important information about the program and some links to sign up or sign in (TBD)</p>
+			<h1>Welcome (or not) to CODE2040 Dashboard</h1>
+			<p>Be aware that this system is seriously unstable and can blow up on your face at anytime...</p>
 
 			<div id="controller-list" role="navigation">
-				<h2>Current Available Controllers:</h2>
+				<h2>Current Available Stuff:</h2>
 				<ul>
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName} stuff</g:link></li>
 					</g:each>
 				</ul>
 			</div>

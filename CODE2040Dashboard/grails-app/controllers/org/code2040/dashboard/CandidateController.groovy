@@ -21,7 +21,7 @@ class CandidateController {
 	def create() {
 		
 		if (request.method == 'GET') {
-			def htmlContent = new File('grails-app/views/login.html').text
+			def htmlContent = new File('grails-app/views/candidate_app.html').text
 			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 		} else if (request.method == 'POST') {
 		
