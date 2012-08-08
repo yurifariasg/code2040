@@ -13,15 +13,27 @@ class ManagementController {
 		render "Hello! This is the Management Controller.. We're still working on it! (" + num + ")" 
 	}
 	
-	def approve() {
+	def approveCandidate() {
 		int candidateID = params.id
-		int stepID = params.stepID
 		
-		Candidate c = candidateService.approveCandidate(candidateID, stepID)
+		Candidate c = candidateService.approveCandidate(candidateID)
 		if (c == null || c.hasErrors()) {
 			render "Couldnt approve candidate"
 		} else {
-			render "Candidate with ID: " + candidateID + " was approved in step number: " + stepID
+			render "Candidate with ID: " + candidateID + " was approved is now in step number: " + c.currentStep
+		}
+	}
+	
+	def denyCandidate() {
+		int candidateID = params.id
+		
+		Candidate c = candidateService.denyCandidate(candidateID)
+		if (c == null || c.hasErrors()) {
+			render "Couldnt deny candidate"
+		} else if (c.status == CandidateStatus.DENIED) {
+			render "Candidate with ID: " + candidateID + " was denied"
+		} else {
+			render "Error happened and Candidate has now status: " + c.status
 		}
 	}
 }
