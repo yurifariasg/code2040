@@ -6,12 +6,13 @@ import org.code2040.dashboard.Question
 import org.code2040.dashboard.RecruitmentInfo
 import org.code2040.dashboard.SecUserSecRole
 import org.code2040.dashboard.SecRole
+import org.code2040.dashboard.CandidateStatus
 
 
 class CandidateService {
 	def springSecurityService
+	
     def createCandidate(String name, String school, String graduationDate, String email,
-		
 		String password, String phoneNumber, char gender, String race, String homeCountry,
 		int fellowYear, List<Question> questions, List<RecruitmentInfo> recruitmentInfo,
 		String homeState) {
@@ -19,8 +20,8 @@ class CandidateService {
 		c.name = name
 		c.school = school
 		c.graduationDate = graduationDate
-		c.email = email
-		c.password = springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
+		c.username = email // Username is the email
+		c.password = password // springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
 		c.phoneNumber = phoneNumber
 		c.gender = gender
 		c.race = race
@@ -38,7 +39,7 @@ class CandidateService {
 		return c
     }
 	
-	def approveCandidate(int candidateID, int stepID) {
+	def approveCandidate(int candidateID) {
 		Candidate c = Candidate.get(candidateID)
 		if (c == null) return null
 		
@@ -47,7 +48,18 @@ class CandidateService {
 			ps.increment()
 			c.currentStep = ps
 			return c.save()
+		} else if (c.status == CandidateStatus.CANDIDATE) {
+			c.status = CandidateStatus.CURRENT_FELLOW
+		} else if (c.status == CandidateStatus.CURRENT_FELLOW) {
+			c.status = CandidateStatus.ALUMNI
 		}
+		return c
+	}
+	
+	def denyCandidate(int candidateID) {
+		Candidate c = Candidate.get(candidateID)
+		if (c == null) return null
+		c.status = CandidateStatus.DENIED
 		return c
 	}
 }

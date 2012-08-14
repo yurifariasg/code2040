@@ -1,6 +1,8 @@
 package org.code2040.dashboard
 
 import grails.plugins.springsecurity.Secured
+import org.code2040.dashboard.Candidate
+import org.code2040.dashboard.ApplicationStep
 
 
 class ManagementController {
@@ -13,20 +15,57 @@ class ManagementController {
     def index() {
 		int num = 0;
 		num = statisticsService.serviceMethod(num)
-		render "Hello! This is the Management Controller.. We're still working on it! (" + num + ")" 
+		render "Hello! This is the Management Controller.. We're still working on it!"
 	}
 	
+	def getNotifications() {
+		int step
+		try {
+			step = Integer.parseInt(params.step)
+		} catch (Exception e) {
+			step = -1
+		}
+		ApplicationStep appStep = null
+		switch (step) {
+			case 1: appStep = ApplicationStep.FIRST_STEP; break;
+			case 2: appStep = ApplicationStep.SECOND_STEP; break;
+			case 3: appStep = ApplicationStep.THIRD_STEP; break;
+			case 4: appStep = ApplicationStep.FOURTH_STEP; break;
+			default: appStep = null; break;
+		}
+		
+		if (appStep == null) {
+			render "This is not a valid step"
+			return
+		}
+		
+		List<Candidate> candidates = Candidate.findAllWhere(currentStep:appStep, status:CandidateStatus.CANDIDATE, needsReview:true)
+		render "There are " + candidates.size() + " looking forward in being approved on this step!"
+	}
 	
 	@Secured(['ROLE_ADMIN'])
-	def approve() {
+	def approveCandidate() {
 		int candidateID = params.id
-		int stepID = params.stepID
 		
-		Candidate c = candidateService.approveCandidate(candidateID, stepID)
+		Candidate c = candidateService.approveCandidate(candidateID)
 		if (c == null || c.hasErrors()) {
 			render "Couldnt approve candidate"
 		} else {
-			render "Candidate with ID: " + candidateID + " was approved in step number: " + stepID
+			render "Candidate with ID: " + candidateID + " was approved is now in step number: " + c.currentStep
+		}
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def denyCandidate() {
+		int candidateID = params.id
+		
+		Candidate c = candidateService.denyCandidate(candidateID)
+		if (c == null || c.hasErrors()) {
+			render "Couldnt deny candidate"
+		} else if (c.status == CandidateStatus.DENIED) {
+			render "Candidate with ID: " + candidateID + " was denied"
+		} else {
+			render "Error happened and Candidate has now status: " + c.status
 		}
 	}
 }

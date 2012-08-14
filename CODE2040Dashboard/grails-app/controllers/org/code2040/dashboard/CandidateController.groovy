@@ -11,6 +11,7 @@ class CandidateController {
 	def candidateService
 	def messageSource
 	def springSecurityService
+	def validationService
 	
 	private currentUser() {
 		return Candidate.get(springSecurityService.principal.id)
@@ -25,14 +26,10 @@ class CandidateController {
 		"/delete"
 	}
 	
-	def quantity() {
-		render SecUser.list().size() + 1
-	}
-	
 	def create() {
 		
 		if (request.method == 'GET') {
-			def htmlContent = new File('grails-app/views/login.html').text
+			def htmlContent = new File('grails-app/views/candidate_app.html').text
 			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 		} else if (request.method == 'POST') {
 		
@@ -41,21 +38,29 @@ class CandidateController {
 			String graduationDate = params.gradDate
 			String email = params.email
 			String password = params.password
+			String secondPassword = params.retry
 			String phoneNumber = params.phone
 			char gender = params.gender != null ? params.gender.charAt(0) : null
 			String race = params.race
 			String homeCountry = params.country
-			int fellowYear = Calendar.getInstance().get(Calendar.YEAR); // Get Always Current Year - ? Or let user decide ?
-			
-			List<Question> questions
-			// TBD
-			
-			List<RecruitmentInfo> recruitmentInfo
-			// TBD
-			
-			// Optional
+			int fellowYear = Calendar.getInstance().get(Calendar.YEAR) // Get Always Current Year - ? Or let user decide ?
 			String homeState = params.homeState
 			
+			List<Question> questions
+			List<RecruitmentInfo> recruitmentInfo
+			
+			String err = validationService.validateCandidateParams(
+				name, school, graduationDate, email, password, secondPassword, phoneNumber,
+				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
+				homeState)
+			
+			if (err != null) {
+				 // SEND THE ERROR!...
+				render err
+				return
+				//def htmlContent = new File('grails-app/views/login.html').text
+				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
+			}
 			Candidate c = candidateService.createCandidate(
 				name, school, graduationDate, email, password, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,

@@ -1,0 +1,17 @@
+body {
+	width: 1024px;
+	margin: auto;
+	text-align: center;
+}
+
+div.hidden {
+	display:none;
+}
+
+div.float {
+	float: left;
+}
+
+div.row {
+	clear: both;
+}
