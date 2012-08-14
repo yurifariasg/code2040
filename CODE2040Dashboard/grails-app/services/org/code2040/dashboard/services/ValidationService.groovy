@@ -26,7 +26,17 @@ class ValidationService {
 		// Graduation Date
 		if (basicValidation(graduationDate, 3))// TODO: Verify Pattern Month/YEAR
 			return "Invalid Graduation Date"
-		
+		String delims = "[/]"
+		String[] gradDate = graduationDate.split(delims)
+		if (gradDate.length>2)
+			return "Input Graduation Date as mm/yy"
+		Integer month = Integer.valueOf(gradDate[0])
+		Integer year = Integer.valueOf(gradDate[1])
+		if ((month.SIZE < 3 && month.SIZE > 0) && (month < 1 || month > 12))
+			return "Enter Graduation Month as a number between 01 and 12"
+		if ((year.SIZE < 3 && year.SIZE > 0) && (year > 0 || year > 100))
+			return "Enter Graduation year as a number between 00 and 99"
+			
 		// EMail
 		if (basicValidation(email, 5))
 			return "E-Mail address too short"
