@@ -6,7 +6,7 @@ class Candidate extends SecUser {
 	String name
 	String school
 	String graduationDate
-	String password
+	//String password
 	String phoneNumber
 	ApplicationStep currentStep = ApplicationStep.FIRST_STEP
 	CandidateStatus status = CandidateStatus.CANDIDATE
@@ -29,10 +29,10 @@ class Candidate extends SecUser {
 
     static constraints = {
 		name minSize:3, blank:false, nullable:true
-		password minSize:6, blank:false
+		//password minSize:6, blank:false
 		school minSize:2, blank:false, nullable:true
 		graduationDate blank:false, nullable:true
-		username email: true, blank: false
+		// username email: true, blank: false
 		phoneNumber blank:false, nullable:true
 		gender blank:false, nullable:true
 		race blank:false, nullable:true

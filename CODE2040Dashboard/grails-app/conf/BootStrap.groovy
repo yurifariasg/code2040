@@ -16,36 +16,20 @@ class BootStrap {
 		def adminRole = SecRole.findByAuthority("ROLE_ADMIN") ?: new SecRole(authority: "ROLE_ADMIN").save()
 		
 		def dummyUser = new Candidate(
-			username: "dummy",
-			password: "pw",//springSecurityService.encodePassword("pw"),
+			username: "dummy@user.com",
+			password: "dummyuser",
 			enabled: true)
 		
-		dummyUser.save(flush: true)
-		
-		println password: springSecurityService.encodePassword("pw")
-		println "Has Errors? " + dummyUser.hasErrors()
-		if (dummyUser.hasErrors()) {
-			
-			dummyUser.errors.allErrors.each {
-				println it
-			}
-			
-		}
-		
-		
-		println "Testing"
-		if (dummyUser == null) println "User is null"
-		if (userRole == null) println "UserRole is null"
-		
+		dummyUser.save(flush: true, failOnError:true)
 		SecUserSecRole.create dummyUser, userRole
 		
-		print dummyUser.password
+		def dummyAdmin = new Manager(
+			username: "manager@2040.com",
+			password: "manager",
+			enabled: true)
 		
-		//def dummyAdmin = new Manager(email: "dummy@admin.com", password: springSecurityService.encodePassword("admin"))
-		//dummyAdmin.save(flush: true)
-		//SecUserSecRole.create dummyAdmin, adminRole
-		
-		
+		dummyAdmin.save(flush: true, failOnError:true)
+		SecUserSecRole.create dummyAdmin, adminRole
     }
     def destroy = {
     }

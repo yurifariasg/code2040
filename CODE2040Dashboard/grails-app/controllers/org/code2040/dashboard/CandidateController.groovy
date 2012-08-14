@@ -83,6 +83,7 @@ class CandidateController {
 		}
 	}
 	
+	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def update() {
 		int id = params.id
 		Candidate c = Candidate.get(id)

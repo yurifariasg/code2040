@@ -12,8 +12,8 @@ class SecUser {
 	boolean passwordExpired
 
 	static constraints = {
-		username blank: false, unique: true
-		password blank: false
+		username blank: false, unique: true, email: true
+		password minSize: 6, blank: false
 	}
 
 	static mapping = {

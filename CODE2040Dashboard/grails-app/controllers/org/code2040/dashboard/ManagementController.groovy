@@ -18,6 +18,7 @@ class ManagementController {
 		render "Hello! This is the Management Controller.. We're still working on it!"
 	}
 	
+	@Secured(['ROLE_ADMIN'])
 	def getNotifications() {
 		int step
 		try {
