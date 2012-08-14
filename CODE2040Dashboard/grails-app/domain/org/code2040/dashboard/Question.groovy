@@ -6,5 +6,6 @@ class Question {
 	boolean beingUsed = false
 
     static constraints = {
+		description minSize:3, blank:false, nullable:true
     }
 }
