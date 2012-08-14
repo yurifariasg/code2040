@@ -3,18 +3,30 @@ package org.code2040.dashboard
 import java.util.List
 import grails.converters.JSON
 import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.plugins.springsecurity.Secured
+
 
 class CandidateController {
 	
 	def candidateService
 	def messageSource
-
+	def springSecurityService
+	
+	private currentUser() {
+		return Candidate.get(springSecurityService.principal.id)
+	}
+	
+	@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
     def index() { 
 		render "Hello! This is the Candidate Controller.. We're still working on it!\n" +
 		"Available Endpoints:\n" +
 		"/create\n" +
 		"/update\n" +
 		"/delete"
+	}
+	
+	def quantity() {
+		render SecUser.list().size() + 1
 	}
 	
 	def create() {

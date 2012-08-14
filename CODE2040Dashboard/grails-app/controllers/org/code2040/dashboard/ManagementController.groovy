@@ -1,18 +1,23 @@
 package org.code2040.dashboard
 
+import grails.plugins.springsecurity.Secured
+
 
 class ManagementController {
 	
 	def statisticsService
 	def activityService
 	def candidateService
-
+	
+	@Secured(['ROLE_ADMIN'])
     def index() {
 		int num = 0;
 		num = statisticsService.serviceMethod(num)
 		render "Hello! This is the Management Controller.. We're still working on it! (" + num + ")" 
 	}
 	
+	
+	@Secured(['ROLE_ADMIN'])
 	def approve() {
 		int candidateID = params.id
 		int stepID = params.stepID

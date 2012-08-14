@@ -4,9 +4,12 @@ import org.code2040.dashboard.Candidate
 import org.code2040.dashboard.ApplicationStep
 import org.code2040.dashboard.Question
 import org.code2040.dashboard.RecruitmentInfo
+import org.code2040.dashboard.SecUserSecRole
+import org.code2040.dashboard.SecRole
+
 
 class CandidateService {
-	def securityService
+	def springSecurityService
     def createCandidate(String name, String school, String graduationDate, String email,
 		
 		String password, String phoneNumber, char gender, String race, String homeCountry,
@@ -17,7 +20,7 @@ class CandidateService {
 		c.school = school
 		c.graduationDate = graduationDate
 		c.email = email
-		c.password = securityService.createHash(password)
+		c.password = springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
 		c.phoneNumber = phoneNumber
 		c.gender = gender
 		c.race = race
@@ -26,7 +29,12 @@ class CandidateService {
 		//c.questions.addAll(questions)
 		//c.recruitmentInfo.addAll(recruitmentInfo)
 		c.homeState = homeState
-		c.save()
+		c.enabled = true // Enabled for Security Reasons
+		c.save(flush: true)
+		
+		// This links the candidate with the role ROLE_USER
+		SecUserSecRole.create c, SecRole.findByAuthority("ROLE_USER")
+		
 		return c
     }
 	

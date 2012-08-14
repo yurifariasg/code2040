@@ -1,12 +1,12 @@
 package org.code2040.dashboard
 
-class Candidate {
+class Candidate extends SecUser {
 	// All Classes already have a attribute called ID
-	String name
+	/*String name
 	String school
 	String graduationDate
-	String email
-	String password // This will be hashed
+	//String email
+	//String password // This will be hashed
 	String phoneNumber
 	ApplicationStep currentStep = ApplicationStep.FIRST_STEP
 	// int status ?!?!?
@@ -25,8 +25,9 @@ class Candidate {
 	int lastLogin = 0
 	
 	// Optional
-	String homeState
-
+	String homeState*/
+	String name
 	    static constraints = {
-    }
+			name(nullable: true)
+		}
 }

@@ -3,7 +3,7 @@ package org.code2040.dashboard
 import org.code2040.dashboard.services.SecurityService
 import org.code2040.dashboard.services.LoginService
 
-class LoginController {
+class KalebLoginController {
 	//@Field Boolean staff = false
 	boolean tryStaff = false
 	def loginService
