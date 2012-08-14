@@ -40,5 +40,7 @@ class Candidate extends SecUser {
 		race blank:false, nullable:true
 		homeCountry minSize:3, blank:false, nullable:true
 		homeState nullable:true
+		picture nullable:true
+		resume nullable:true
 	}
 }
