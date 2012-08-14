@@ -10,7 +10,7 @@ class ValidationService {
     def validateCandidateParams(String name, String school, String graduationDate, String email,
 		String password, String secondPassword, String phoneNumber, char gender, String race,
 		String homeCountry, int fellowYear, List<Question> questions,
-		List<RecruitmentInfo> recruitmentInfo, String homeState) {
+		List<RecruitmentInfo> recruitmentInfo, String homeState, String picture, String resume) {
 		
 		// Name
 		if (basicValidation(name, 6))

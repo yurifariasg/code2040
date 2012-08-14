@@ -40,11 +40,13 @@ class CandidateController {
 			String password = params.password
 			String secondPassword = params.retry
 			String phoneNumber = params.phone
-			char gender = params.gender != null ? params.gender.charAt(0) : null
+			char gender = params.gender != null ? params.gender.charAt(0) : null//was Gender short in specs
 			String race = params.race
+		    String homeState = params.homeState
 			String homeCountry = params.country
 			int fellowYear = Calendar.getInstance().get(Calendar.YEAR) // Get Always Current Year - ? Or let user decide ?
-			String homeState = params.homeState
+			String picture = params.picture
+			String resume = params.resume
 			
 			List<Question> questions
 			List<RecruitmentInfo> recruitmentInfo
@@ -52,7 +54,7 @@ class CandidateController {
 			String err = validationService.validateCandidateParams(
 				name, school, graduationDate, email, password, secondPassword, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
-				homeState)
+				homeState, picture, resume)
 			
 			if (err != null) {
 				 // SEND THE ERROR!...
@@ -64,7 +66,7 @@ class CandidateController {
 			Candidate c = candidateService.createCandidate(
 				name, school, graduationDate, email, password, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
-				homeState
+				homeState, picture, resume
 				)
 			if (c.hasErrors()) {
 				def locale = Locale.getDefault()

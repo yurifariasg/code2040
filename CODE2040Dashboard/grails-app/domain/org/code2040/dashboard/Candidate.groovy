@@ -26,6 +26,8 @@ class Candidate extends SecUser {
 	
 	// Optional
 	String homeState
+	String picture //link to picture
+	String resume //link to resume
 
     static constraints = {
 		name minSize:3, blank:false, nullable:true
