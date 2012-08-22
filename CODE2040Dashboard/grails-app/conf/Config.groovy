@@ -78,6 +78,8 @@ log4j = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
+	
+	'null' name:'stacktrace'
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -91,3 +93,8 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.code2040.dashboard.SecUser'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.code2040.dashboard.SecUserSecRole'
+grails.plugins.springsecurity.authority.className = 'org.code2040.dashboard.SecRole'

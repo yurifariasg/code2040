@@ -1,5 +1,6 @@
 package org.code2040.dashboard
 
+import grails.plugins.springsecurity.Secured
 import org.code2040.dashboard.Candidate
 import org.code2040.dashboard.ApplicationStep
 
@@ -9,13 +10,15 @@ class ManagementController {
 	def statisticsService
 	def activityService
 	def candidateService
-
+	
+	@Secured(['ROLE_ADMIN'])
     def index() {
 		int num = 0;
 		num = statisticsService.serviceMethod(num)
 		render "Hello! This is the Management Controller.. We're still working on it!"
 	}
 	
+	@Secured(['ROLE_ADMIN'])
 	def getNotifications() {
 		int step
 		try {
@@ -41,6 +44,7 @@ class ManagementController {
 		render "There are " + candidates.size() + " looking forward in being approved on this step!"
 	}
 	
+	@Secured(['ROLE_ADMIN'])
 	def approveCandidate() {
 		int candidateID = params.id
 		
@@ -52,6 +56,7 @@ class ManagementController {
 		}
 	}
 	
+	@Secured(['ROLE_ADMIN'])
 	def denyCandidate() {
 		int candidateID = params.id
 		

@@ -1,7 +1,7 @@
 package org.code2040.dashboard
 
-class Manager {
-
+class Manager extends SecUser {
+	
     static constraints = {
     }
 }
