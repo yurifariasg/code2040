@@ -1,4 +1,3 @@
-package org.code2040.dashboard
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletResponse
