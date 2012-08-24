@@ -12,10 +12,22 @@ class CandidateController {
 	def messageSource
 	def springSecurityService
 	def validationService
+	def emailConfirmationService
 	
 	private currentUser() {
 		return Candidate.get(springSecurityService.principal.id)
 	}
+	
+	def checkEmail = {
+	  // Only do this if not confirmed already!
+	  emailConfirmationService.sendConfirmation('yurifariasg@gmail.com',
+		"Please confirm ur email", [from:"server@yourdomain.com"], 'meuusertoken')
+	  render "Confirmation Sent!"
+	}
+	
+	def welcome = {
+		render "CONFIRMED! " + params.uid + " lala " + params.email
+	} 
 	
 	@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
     def index() { 

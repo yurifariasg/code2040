@@ -98,3 +98,15 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.code2040.dashboard.SecUser'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.code2040.dashboard.SecUserSecRole'
 grails.plugins.springsecurity.authority.className = 'org.code2040.dashboard.SecRole'
+
+// E-Mail | SMTP Host
+grails.mail.host = 'smtp.gmail.com'//'mail.yourdomain.com' // Duh, don't try this at home!
+
+host = "smtp.gmail.com"
+grails.mail.port = 465
+grails.mail.username = "@gmail.com"
+grails.mail.password = ""
+grails.mail.props = ["mail.smtp.auth":"true",
+		 "mail.smtp.socketFactory.port":"465",
+		 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+		 "mail.smtp.socketFactory.fallback":"false"]
