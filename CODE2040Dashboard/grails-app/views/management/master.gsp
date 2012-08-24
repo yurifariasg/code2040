@@ -36,7 +36,7 @@
 				<label class="checkBoxLabel" for="status_alu">Alum</label>
 			</div>
 			<div class="table container">
-				<table>
+				<table id="ml_results">
 					<tr>
 						<th>Name</th>
 						<th>School</th>

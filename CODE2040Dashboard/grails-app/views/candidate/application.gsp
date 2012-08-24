@@ -3,6 +3,8 @@
 	<head>
 		<title>CODE:2040 - Application</title>
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'cv_app.css')}" />
+		<blueprint:resources/>
 	</head>
 	<body>
 		<div class="header">

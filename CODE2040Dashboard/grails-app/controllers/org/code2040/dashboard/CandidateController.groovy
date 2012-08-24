@@ -26,6 +26,10 @@ class CandidateController {
 		//"/delete"
 	}
 	
+	def application() {
+		
+	}
+	
 	def login() {
 		
 	}

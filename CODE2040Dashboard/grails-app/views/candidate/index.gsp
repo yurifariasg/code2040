@@ -3,7 +3,7 @@
 	<head>
 		<title>CODE:2040 - Applicant</title>
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
-		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'candidate_view_1.css')}" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'cv_reg.css')}" />
 		<g:javascript src="login.js" />
 	<blueprint:resources/>
 	</head>
