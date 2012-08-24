@@ -11,11 +11,15 @@ class CandidateController {
 	def validationService
 
     def index() { 
-		render "Hello! This is the Candidate Controller.. We're still working on it!\n" +
-		"Available Endpoints:\n" +
-		"/create\n" +
-		"/update\n" +
-		"/delete"
+		//render "Hello! This is the Candidate Controller.. We're still working on it!\n" +
+		//"Available Endpoints:\n" +
+		//"/create\n" +
+		//"/update\n" +
+		//"/delete"
+	}
+	
+	def login() {
+		
 	}
 	
 	def create() {
