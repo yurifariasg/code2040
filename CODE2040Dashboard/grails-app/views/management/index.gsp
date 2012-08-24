@@ -1,100 +1,54 @@
-
-<%@ page import="org.code2040.dashboard.Question" %>
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'question.label', default: 'Tasks')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		
-		<style type="text/css">
-			#page-body {
-				margin: 2em 5em 1.25em 5em;
-			}
-		</style>
+		<title>CODE:2040 - Applicant</title>
+		<link rel="stylesheet" type="text/css" href="main.css" />
+		<script type="text/javascript" src="login.js"></script>
 	</head>
 	<body>
-		<a href="#list-question" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/management')}">Dashboard</a></li>
-				<li><g:link class="list" action="index">Some other future link</g:link></li>
-			</ul>
+		<div class="header">
+			<h1 class="site_title">Staff</h1>
+			<h2 class="page_title">CODE:2040</h2>
 		</div>
-		<div id="page-body" role="main" margin="2em 5em 1.25em 5em;">
-			<div class="header">
-				<h2 class="page_title">Task List: Take Action</h2>
-			</div>
-			<div class="content">
-				<div class="task row">
-					<div class="row">
-						<img src="" alt="triangular arrow"/>
-						<h4 class="task_header">Step 1: Review application <b>(${step_one.size()})</b></h4>
-						<g:each in="${step_one}" status="i" var="candidateInstance">
-							<tr><b>${candidateInstance.name}</b></tr>
-							
-							<g:if test="${candidateInstance.needsReview}">
-								<g:remoteLink action="approveCandidate" id="${candidateInstance.id}">Approve</g:remoteLink>
-								<g:remoteLink action="denyCandidate" id="${candidateInstance.id}">Reject</g:remoteLink>
-							</g:if>
-							<g:else>Reviewed!</g:else>
-							
-						</g:each>
+		<div class="content">
+			<div class="log container" id="logCon">
+				<h3 class="log title">Login</h3>
+				<form class="log submission" action="" method="post">
+					<div class="elem_containter">
+						<label for="log_email">Email:</label><br/>
+						<input type="text" id="log_email"/>
 					</div>
-					<div class="row hidden" id="hidden_content_step_one">
-	
+					<div class="elem_containter">	
+						<label for="log_password">Password:</label><br>
+						<input type="password" id="log_password"/>
 					</div>
-				</div>
-				<div class="task row">
-					<img src="" alt="triangular arrow"/>
-					<h4 class="task_header">Step 2: Review scores <b>(${step_two.size()})</b></h4>
-					<g:each in="${step_two}" status="i" var="candidateInstance">
-							<tr><b>${candidateInstance.name}</b></tr>
-							
-							<g:if test="${candidateInstance.needsReview}">
-								<g:remoteLink action="approveCandidate" id="${candidateInstance.id}">Approve</g:remoteLink>
-								<g:remoteLink action="denyCandidate" id="${candidateInstance.id}">Reject</g:remoteLink>
-							</g:if>
-							<g:else>Reviewed!</g:else>
-							
-					</g:each>
-				</div>
-				<div class="task row">
-					<img src="" alt="triangular arrow"/>
-					<h4 class="task_header">Step 3: Phone screens <b>(${step_three.size()})</b></h4>
-					<g:each in="${step_three}" status="i" var="candidateInstance">
-							<tr><b>${candidateInstance.name}</b></tr>
-							
-							<g:if test="${candidateInstance.needsReview}">
-								<g:remoteLink action="approveCandidate" id="${candidateInstance.id}">Approve</g:remoteLink>
-								<g:remoteLink action="denyCandidate" id="${candidateInstance.id}">Reject</g:remoteLink>
-							</g:if>
-							<g:else>Reviewed!</g:else>
-							
-					</g:each>
-				</div>
-				<div class="task row">
-					<img src="" alt="triangular arrow"/>
-					<h4 class="task_header">Step 4: Internship match <b>(${step_four.size()})</b></h4>
-					<g:each in="${step_fourth}" status="i" var="candidateInstance">
-							<tr><b>${candidateInstance.name}</b></tr>
-							
-							<g:if test="${candidateInstance.needsReview}">
-								<g:remoteLink action="approveCandidate" id="${candidateInstance.id}">Approve</g:remoteLink>
-								<g:remoteLink action="denyCandidate" id="${candidateInstance.id}">Reject</g:remoteLink>
-							</g:if>
-							<g:else>Reviewed!</g:else>
-							
-					</g:each>
-				</div>
-				<div class="task row">
-					<img src="" alt="triangular arrow"/>
-					<h4 class="task_header">Denied Candidates <b>(${denied.size()})</b></h4>
-					<g:each in="${denied}" status="i" var="candidateInstance">
-							<tr><b>${candidateInstance.name}</b></tr>
-					</g:each>
-				</div>
+					<div class="elem_containter">	
+						<a href="#" id="switch_reg" onclick="switchToRegistration()">Sign up</a>
+						<input type="submit" value="Login"/>
+					</div>
+				</form>
 			</div>
+			<div class="reg container hidden" id="regCon">
+				<h3 class="reg title">Register</h3>
+				<form class="reg submission" action="" method="post">
+					<div class="elem_containter">
+						<label for="reg_email">Email:</label><br/>
+						<input type="text" id="reg_email" name="email"/>
+					</div>
+					<div class="elem_containter">
+						<label for="reg_password">Password:</label></br>
+						<input type="password" id="reg_password" name="password"/>
+					</div>
+					<div class="elem_containter">
+						<label for="reg_retype">Retype password:</label></br>
+						<input type="password" id="reg_retype" name="retry"/>
+					</div>
+					<div class="elem_containter">
+						<a href="#" id="switch_log" onclick="switchToLogin()">Already registered?</a>
+						<input type="submit" value="Register">
+					</div>
+				</form>
+			</div>	
 		</div>
 	</body>
 </html>
