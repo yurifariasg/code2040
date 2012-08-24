@@ -17,7 +17,7 @@ class CandidateController {
 		return Candidate.get(springSecurityService.principal.id)
 	}
 	
-	@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
+	//@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
     def index() { 
 		//render "Hello! This is the Candidate Controller.. We're still working on it!\n" +
 		//"Available Endpoints:\n" +

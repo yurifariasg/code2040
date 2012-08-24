@@ -5,7 +5,6 @@
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'candidate_view_1.css')}" />
 		<g:javascript src="login.js" />
-		<script type="text/javascript" src="login.js"></script>
 	<blueprint:resources/>
 	</head>
 	<body>

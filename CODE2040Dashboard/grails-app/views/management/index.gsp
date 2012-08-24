@@ -1,9 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>CODE:2040 - Applicant</title>
-		<link rel="stylesheet" type="text/css" href="main.css" />
-		<script type="text/javascript" src="login.js"></script>
+		<title>CODE:2040 - Staff</title>
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'cv_login.css')}" />
+		<g:javascript src="login.js" />
+		<blueprint:resources/>
 	</head>
 	<body>
 		<div class="header">
@@ -19,33 +21,41 @@
 						<input type="text" id="log_email"/>
 					</div>
 					<div class="elem_containter">	
-						<label for="log_password">Password:</label><br>
+						<label for="log_password">Password:</label><br/>
 						<input type="password" id="log_password"/>
 					</div>
 					<div class="elem_containter">	
-						<a href="#" id="switch_reg" onclick="switchToRegistration()">Sign up</a>
+						<a href="#" id="switch_reg" onclick="switchToRegistration()">Need to register?</a>
 						<input type="submit" value="Login"/>
 					</div>
 				</form>
 			</div>
 			<div class="reg container hidden" id="regCon">
 				<h3 class="reg title">Register</h3>
-				<form class="reg submission" action="" method="post">
+				<form class="reg submission" action="create" method="post">
+					<div class="elem_containter">
+						<label for="reg_fname">First Name:</label><br/>
+						<input type="text" id="reg_fname" name="firstname"/>
+					</div>
+					<div class="elem_containter">
+						<label for="reg_lname">Last Name:</label><br/>
+						<input type="text" id="reg_lname" name="lastname"/>
+					</div>
 					<div class="elem_containter">
 						<label for="reg_email">Email:</label><br/>
 						<input type="text" id="reg_email" name="email"/>
 					</div>
 					<div class="elem_containter">
-						<label for="reg_password">Password:</label></br>
+						<label for="reg_password">Password:</label><br/>
 						<input type="password" id="reg_password" name="password"/>
 					</div>
 					<div class="elem_containter">
-						<label for="reg_retype">Retype password:</label></br>
+						<label for="reg_retype">Retype password:</label><br/>
 						<input type="password" id="reg_retype" name="retry"/>
 					</div>
 					<div class="elem_containter">
 						<a href="#" id="switch_log" onclick="switchToLogin()">Already registered?</a>
-						<input type="submit" value="Register">
+						<input type="submit" value="Register"/>
 					</div>
 				</form>
 			</div>	
