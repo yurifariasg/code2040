@@ -1,0 +1,9 @@
+img, h4 {
+	display: inline;
+	margin: 5px;
+}
+
+div.row {
+	text-align: left;
+	padding-left: 350px;
+}

@@ -1,0 +1,22 @@
+body {
+	padding: 0px;
+	margin:0px;
+	text-align: center;
+}
+
+div.content {
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+div.hidden {
+	display:none;
+}
+
+div.float {
+	float: left;
+}
+
+div.row {
+	clear: both;
+}
