@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>CODE:2040 - Task List</title>
+		<link rel="stylesheet" type="text/css" href="main.css" />
+		<link rel="stylesheet" type="text/css" href="tasks.css" />
 	</head>
 	<body>
 		<div class="header">
@@ -10,29 +12,36 @@
 		</div>
 		<div class="content">
 			<div class="task row">
-				<div class="row">
-					<img src="" alt="triangular arrow"/>
+					<img src="" alt="triangular arrow" onclick="clickHandler(this,'hidden_content_step_one')"/>
 					<h4 class="task_header">Step 1: Review application</h4>
 					<h4 class="count">1</h4>
-				</div>
 				<div class="row hidden" id="hidden_content_step_one">
 
 				</div>
 			</div>
 			<div class="task row">
-				<img src="" alt="triangular arrow"/>
+				<img src="" alt="triangular arrow" onclick="clickHandler(this,'hidden_content_step_two')"/>
 				<h4 class="task_header">Step 2: Review scores</h4>
 				<h4 class="count">1</h4>
+				<div class="row hidden" id="hidden_content_step_two">
+
+				</div>
 			</div>
 			<div class="task row">
-				<img src="" alt="triangular arrow"/>
+				<img src="" alt="triangular arrow" onclick="clickHandler(this,'hidden_content_step_three')"/>
 				<h4 class="task_header">Step 3: Phone screens</h4>
 				<h4 class="count">1</h4>
+				<div class="row hidden" id="hidden_content_step_three">
+
+				</div>
 			</div>
 			<div class="task row">
-				<img src="" alt="triangular arrow"/>
+				<img src="" alt="triangular arrow" onclick="clickHandler(this,'hidden_content_step_four')"/>
 				<h4 class="task_header">Step 4: Internship match</h4>
 				<h4 class="count">1</h4>
+				<div class="row hidden" id="hidden_content_step_four">
+
+				</div>
 			</div>
 		</div>
 	</body>
