@@ -26,7 +26,7 @@ class CandidateController {
 		"/delete"
 	}
 	
-	def create() {
+	def setBioInfo() {
 		
 		if (request.method == 'GET') {
 			def htmlContent = new File('grails-app/views/candidate_app.html').text
