@@ -26,6 +26,41 @@ class CandidateController {
 		"/delete"
 	}
 	
+	def create(){
+		if (request.method == 'GET') {
+			def htmlContent = new File('grails-app/views/candidate_create.html').text
+			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
+		} else if (request.method == 'POST') {
+			String email = params.email
+			String password = params.password
+			String secondPassword = params.retry
+			String err = validationService.validateCandidateCreate(email, password, secondPassword)
+			
+			if (err != null) {
+				 // SEND THE ERROR!...
+				render err
+				return
+				//def htmlContent = new File('grails-app/views/login.html').text
+				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
+			}
+			Candidate c = candidateService.createCandidateA(email, password)
+			if (c.hasErrors()) {
+				def locale = Locale.getDefault()
+				for (fieldErrors in c.errors) {
+				   for (error in fieldErrors.allErrors) {
+					  String message = messageSource.getMessage(error, locale)
+					  render message
+					  return
+				   }
+				}
+			} else {
+				render "User Created sucessfully! ID: " + c.id
+			}
+		} else {
+			render "Invalid Request"
+		}
+	}
+	
 	def setBioInfo() {
 		
 		if (request.method == 'GET') {
