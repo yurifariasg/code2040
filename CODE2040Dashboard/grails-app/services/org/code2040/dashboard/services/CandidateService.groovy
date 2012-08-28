@@ -12,6 +12,22 @@ import org.code2040.dashboard.CandidateStatus
 class CandidateService {
 	def springSecurityService
 	
+	def createCandidateA(String email, String password){
+		Candidate c = new Candidate()
+		c.username = email
+		c.password = password // springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
+		c.enabled = true // Enabled for Security Reasons
+		c.save(flush: true)
+		
+		//if (SecUser.findByUsername(email) != null){
+		//	return "User already exists"
+		//}
+		
+		// This links the candidate with the role ROLE_USER
+		SecRole q = SecRole.findByAuthority("ROLE_USER")
+		SecUserSecRole.create(c, q)
+		return c
+	}
     def createCandidate(String name, String school, String graduationDate, String email,
 		String password, String phoneNumber, char gender, String race, String homeCountry,
 		int fellowYear, List<Question> questions, List<RecruitmentInfo> recruitmentInfo,
