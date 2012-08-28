@@ -19,17 +19,17 @@ class ValidationService {
 		}
 	}
 	
-    def validateCandidateParams(String name, String school, String graduationDate, String email,
+    def validateCandidateParams(String fname, String lname, String school, String graduationDate, String email,
 		String password, String secondPassword, String phoneNumber, char gender, String race,
 		String homeCountry, int fellowYear, List<Question> questions,
 		List<RecruitmentInfo> recruitmentInfo, String homeState) {
 		
 		// Name
-		if (basicValidation(name, 6))
-			return "Name too short"
+		if (basicValidation(fname, 2))
+			return "First Name too short"
 		
-		if (!name.contains(" "))
-			return "Name needs to have at least one last name"
+		if (basicValidation(lname, 2))
+			return "Last Name too short"
 		
 		// School
 		if (basicValidation(school, 4))

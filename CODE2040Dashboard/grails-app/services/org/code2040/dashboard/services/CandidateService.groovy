@@ -28,12 +28,13 @@ class CandidateService {
 		SecUserSecRole.create(c, q)
 		return c
 	}
-    def createCandidate(String name, String school, String graduationDate, String email,
+    def createCandidate(String fname, String lname, String school, String graduationDate, String email,
 		String password, String phoneNumber, char gender, String race, String homeCountry,
 		int fellowYear, List<Question> questions, List<RecruitmentInfo> recruitmentInfo,
 		String homeState) {
 		Candidate c = new Candidate()
-		c.name = name
+		c.fname = fname
+		c.lname = lname
 		c.school = school
 		c.graduationDate = graduationDate
 		c.username = email // Username is the email

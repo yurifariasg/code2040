@@ -68,7 +68,8 @@ class CandidateController {
 			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 		} else if (request.method == 'POST') {
 		
-			String name = params.name
+			String fname = params.fname
+			String lname = params.lname
 			String school = params.school
 			String graduationDate = params.gradDate
 			String email = params.email
@@ -85,7 +86,7 @@ class CandidateController {
 			List<RecruitmentInfo> recruitmentInfo
 			
 			String err = validationService.validateCandidateParams(
-				name, school, graduationDate, email, password, secondPassword, phoneNumber,
+				fname, lname, school, graduationDate, email, password, secondPassword, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
 				homeState)
 			
@@ -97,7 +98,7 @@ class CandidateController {
 				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 			}
 			Candidate c = candidateService.createCandidate(
-				name, school, graduationDate, email, password, phoneNumber,
+				fname, lname, school, graduationDate, email, password, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
 				homeState
 				)
