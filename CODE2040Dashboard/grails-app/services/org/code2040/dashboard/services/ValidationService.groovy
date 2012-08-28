@@ -17,6 +17,10 @@ class ValidationService {
 		if (secondPassword == null){
 			return "SecondPassword is null"
 		}
+		
+		if (password != secondPassword){
+			return "The passwords do not match"
+		}
 	}
 	
     def validateCandidateParams(String fname, String lname, String school, String graduationDate, String email,
