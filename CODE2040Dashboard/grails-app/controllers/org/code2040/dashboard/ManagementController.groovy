@@ -11,11 +11,19 @@ class ManagementController {
 	def activityService
 	def candidateService
 	
-	@Secured(['ROLE_ADMIN'])
+	//@Secured(['ROLE_ADMIN'])
     def index() {
 		int num = 0;
 		num = statisticsService.serviceMethod(num)
-		render "Hello! This is the Management Controller.. We're still working on it!"
+		//render "Hello! This is the Management Controller.. We're still working on it!"
+	}
+	
+	def master() {
+		
+	}
+	
+	def aitems() {
+		
 	}
 	
 	@Secured(['ROLE_ADMIN'])

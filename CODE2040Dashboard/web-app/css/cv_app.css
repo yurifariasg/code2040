@@ -1,0 +1,15 @@
+div.content {
+	text-align: left;
+	width:600px;
+}
+
+div.float {
+	padding: 10px;
+}
+
+#formButton {
+	text-align: center;
+}
+
+div.row {
+}

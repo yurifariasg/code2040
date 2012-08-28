@@ -1,0 +1,22 @@
+#about {
+	text-align: left;
+	width: 400px;	
+}
+
+div.content {
+	width:650px;
+}
+
+div.container {
+	text-align: left;
+	width: 200px;
+}
+
+div.float {
+	padding: 10px;
+}
+
+#formButton {
+	text-align: center;
+	padding-right: 175px;
+}
