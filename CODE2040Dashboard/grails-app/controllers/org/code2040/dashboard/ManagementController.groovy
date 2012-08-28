@@ -22,6 +22,10 @@ class ManagementController {
 		
 	}
 	
+	def aitems() {
+		
+	}
+	
 	@Secured(['ROLE_ADMIN'])
 	def getNotifications() {
 		int step

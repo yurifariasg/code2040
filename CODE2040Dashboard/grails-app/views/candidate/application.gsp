@@ -75,6 +75,8 @@
 						<label for="mixed">Two or more races</label>
 					</div>
 				</div>
+				<div class="row">
+				</div>
 				<div class="row" id="formButton">
 					<input type="submit" value="Save Form" />
 					<input type="submit" value="Submit"/>
