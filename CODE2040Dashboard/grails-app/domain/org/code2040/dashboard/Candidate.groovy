@@ -20,6 +20,8 @@ class Candidate extends SecUser {
 	List<Question> questions
 	List<RecruitmentInfo> recruitmentInfo
 	
+	ArrayList<Comment> comments
+	
 	int timeCreated = System.currentTimeMillis()
 	int timeModified = System.currentTimeMillis()
 	int timeRemoved = 0
@@ -40,5 +42,6 @@ class Candidate extends SecUser {
 		race blank:false, nullable:true
 		homeCountry minSize:3, blank:false, nullable:true
 		homeState nullable:true
+		
 	}
 }
