@@ -16,6 +16,15 @@ class CandidateService {
 		Candidate c = new Candidate()
 		c.username = email
 		c.password = password // springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
+		c.fname = null;
+		c.lname = null;
+		c.school= null;
+		c.graduationDate = null;
+		c.phoneNumber = null;
+		c.gender = "M";
+		c.race = null;
+		c.homeCountry = null;
+		c.homeState = null;
 		c.enabled = true // Enabled for Security Reasons
 		c.save(flush: true)
 		
