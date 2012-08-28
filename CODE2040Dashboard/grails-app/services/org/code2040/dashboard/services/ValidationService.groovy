@@ -7,6 +7,18 @@ import org.code2040.dashboard.RecruitmentInfo;
 
 class ValidationService {
 
+	def validateCandidateCreate(String email, String password, String secondPassword){
+		if (email == null){
+			return "Email is null"
+		}
+		if (password == null){
+			return "Email is null"
+		}
+		if (secondPassword == null){
+			return "SecondPassword is null"
+		}
+	}
+	
     def validateCandidateParams(String name, String school, String graduationDate, String email,
 		String password, String secondPassword, String phoneNumber, char gender, String race,
 		String homeCountry, int fellowYear, List<Question> questions,
