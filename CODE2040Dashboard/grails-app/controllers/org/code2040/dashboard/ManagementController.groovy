@@ -12,7 +12,6 @@ class ManagementController {
 	def candidateService
 	
     def index() {
-		redirect(controller:"login",action:"auth")
 	}
 	
 	def master() {
