@@ -15,14 +15,14 @@
 		<div class="content">
 			<div class="log container" id="logCon">
 				<h3 class="log title">Login</h3>
-				<form class="log submission" action="" method="post">
+				<form class="log submission" action="${postUrl}" method="post">
 					<div class="elem_containter">
 						<label for="log_email">Email:</label><br/>
-						<input type="text" id="log_email"/>
+						<input type="text" id="log_email" name="j_username"/>
 					</div>
 					<div class="elem_containter">	
 						<label for="log_password">Password:</label><br/>
-						<input type="password" id="log_password"/>
+						<input type="password" id="log_password" name="j_password"/>
 					</div>
 					<div class="elem_containter">	
 						<a href="index" id="switch_reg">Need to register?</a>

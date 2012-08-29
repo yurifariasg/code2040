@@ -13,43 +13,43 @@
 		</div>
 		<div class="content">
 			<h3 class="form title">The Facts</h3>
-			<form class="app submission" action="" method="post">
+				
 				<div class="float">
 					<div class="row">
 						<label for="app_fname">First Name:</label><br/>
-						<input type="text" id="app_fname"/>
+						<input type="text" id="app_fname" name="fname"/>
 					</div>
 					<div class="row">
 						<label for="app_school">College:</label><br/>
-						<input type="text" id="app_school"/>
+						<input type="text" id="app_school" name="school"/>
 					</div>
 					<div class="row">
 						<label for="app_state">Home state:</label><br/>
-						<input type="text" id="app_state"/>
+						<input type="text" id="app_state" name="homeState"/>
 					</div>
 					<div class="row">
 						<label for="app_phone">Phone:</label><br/>
-						<input type="text" id="app_phone"/>
+						<input type="text" id="app_phone" name="phone"/>
 					</div>
 				</div>
 				<div class="float">
 					<div class="row">
 						<label for="app_lname">Last Name:</label><br/>
-						<input type="text" id="app_lname"/>
+						<input type="text" id="app_lname" name="lname"/>
 					</div>
 					<div class="row">
 						<label for="app_grad_yr">Expected graduation year:</label><br/>
-						<input type="text" id="app_grad_yr" />
+						<input type="text" id="app_grad_yr" name="gradDate"/>
 					</div>
 					<div class="row">
 						<label for="app_country">Home country:</label><br/>
-						<input type="text" id="app_country"/>				
+						<input type="text" id="app_country" name="country"/>				
 					</div>	
 				</div>
 				<div class="float">
 					<div class="row">
 						<label for="app_gender">Gender:</label><br/>
-						<select id="app_gender">
+						<select id="app_gender" name="gender">
 							<option>Male</option>
 							<option>Female</option>
 							<option>Prefer not to say</option>

@@ -85,7 +85,7 @@ class ValidationService {
 		
 	private def basicValidation(String nameToValidate, int minSize) {
 		if (nameToValidate == null || (minSize > 0 && nameToValidate.length() < minSize))
-			return false
-		return true
+			return true
+		return false
 	}
 }

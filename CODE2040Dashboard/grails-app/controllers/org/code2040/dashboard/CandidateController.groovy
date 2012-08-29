@@ -19,11 +19,6 @@ class CandidateController {
 	
 	//@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
     def index() { 
-		//render "Hello! This is the Candidate Controller.. We're still working on it!\n" +
-		//"Available Endpoints:\n" +
-		//"/create\n" +
-		//"/update\n" +
-		//"/delete"
 	}
 	
 	def application() {
@@ -31,7 +26,7 @@ class CandidateController {
 	}
 	
 	def login() {
-		
+		redirect(controller:"login",action:"auth")
 	}
 	
 	def create(){

@@ -11,11 +11,8 @@ class ManagementController {
 	def activityService
 	def candidateService
 	
-	//@Secured(['ROLE_ADMIN'])
     def index() {
-		int num = 0;
-		num = statisticsService.serviceMethod(num)
-		//render "Hello! This is the Management Controller.. We're still working on it!"
+		redirect(controller:"login",action:"auth")
 	}
 	
 	def master() {
