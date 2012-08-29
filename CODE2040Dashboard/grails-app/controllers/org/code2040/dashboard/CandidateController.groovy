@@ -34,14 +34,50 @@ class CandidateController {
 		
 	}
 	
-	def create() {
+	def create(){
+		if (request.method == 'GET') {
+			def htmlContent = new File('grails-app/views/candidate_create.html').text
+			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
+		} else if (request.method == 'POST') {
+			String email = params.email
+			String password = params.password
+			String secondPassword = params.retry
+			String err = validationService.validateCandidateCreate(email, password, secondPassword)
+			
+			if (err != null) {
+				 // SEND THE ERROR!...
+				render err
+				return
+				//def htmlContent = new File('grails-app/views/login.html').text
+				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
+			}
+			Candidate c = candidateService.createCandidateA(email, password)
+			if (c.hasErrors()) {
+				def locale = Locale.getDefault()
+				for (fieldErrors in c.errors) {
+				   for (error in fieldErrors.allErrors) {
+					  String message = messageSource.getMessage(error, locale)
+					  render message
+					  return
+				   }
+				}
+			} else {
+				render "User Created sucessfully! ID: " + c.id
+			}
+		} else {
+			render "Invalid Request"
+		}
+	}
+	
+	def setBioInfo() {
 		
 		if (request.method == 'GET') {
 			def htmlContent = new File('grails-app/views/candidate_app.html').text
 			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 		} else if (request.method == 'POST') {
 		
-			String name = params.name
+			String fname = params.fname
+			String lname = params.lname
 			String school = params.school
 			String graduationDate = params.gradDate
 			String email = params.email
@@ -58,7 +94,7 @@ class CandidateController {
 			List<RecruitmentInfo> recruitmentInfo
 			
 			String err = validationService.validateCandidateParams(
-				name, school, graduationDate, email, password, secondPassword, phoneNumber,
+				fname, lname, school, graduationDate, email, password, secondPassword, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
 				homeState)
 			
@@ -70,7 +106,7 @@ class CandidateController {
 				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 			}
 			Candidate c = candidateService.createCandidate(
-				name, school, graduationDate, email, password, phoneNumber,
+				fname, lname, school, graduationDate, email, password, phoneNumber,
 				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
 				homeState
 				)
