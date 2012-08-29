@@ -26,6 +26,10 @@ class ManagementController {
 		redirect(controller:"login",action:"auth")
 	}
 	
+	def dashboard() {
+		
+	}
+	
 	@Secured(['ROLE_ADMIN'])
 	def getNotifications() {
 		int step
