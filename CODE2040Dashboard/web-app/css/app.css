@@ -24,3 +24,7 @@ div.float {
 div.row {
 	clear: both;
 }
+
+.bold {
+	font-weight: bold;
+}

@@ -14,8 +14,27 @@
 		</div>
 		<div class="content">
 			<div class="float" id="about">
-				<h3 class="title">About CODE:2040</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in odio eu est porttitor pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec quis felis ante, vel suscipit nibh. Nulla facilisi. Morbi ultrices vestibulum tortor ut posuere. Quisque a lorem massa. Pellentesque volutpat congue massa nec cursus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque sit amet sodales ante. Mauris fermentum nunc quis elit luctus eget pharetra dui malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent elementum, enim eget aliquet aliquam, nibh dui molestie metus, sed egestas libero nibh porta neque.</p>
+				<h3 class="title">Apply Now</h3>
+				<p id="intro"><span class="bold">Welcome to CODE2040!</span> If you're into computer science -- or just an awesome coder -- and interested in the fast-paced world of Silicon Valley startups, then you're in the right place.</p>
+				<p><span class="bold">Here's a quick overview of the program:</span></p>
+				<span>If you are a:</span>
+				<ul>
+					<li>Black or Latino/a</li>
+					<li>An awesome coder/computer engineer looking for a challenging, fast-paced summer internship</li>
+					<li>Ready to meet some of the most innovative people in Silicon Valley</li>
+				</ul>
+				<span>Apply to the CODE2040 fellowship to get:</span>
+				<ul>
+					<li>a paid internship with a top startup</li>
+					<li>individual mentoring from successful entrepreneurs</li>
+					<li>intimate discussions with tech leaders</li>
+					<li>company visits</li>
+					<li>interactive workshops</li>
+					<li>executive coaching</li>
+				</ul>
+				<p>For more, check out this <a href="http://www.bloomberg.com/video/new-code-2040-internship-helps-diversify-workforce-e4sOlmWXSmKq4TMRLrLukg.html">short feature on us on Bloomberg TV.</a></p>
+				<p><span class="bold">What's with the name?</span>  The year 2040 is the year in which people of color will become the majority in the US. We want to make sure people of color are well represented in America's most innovative economies, like Silicon Valley, by that same year.</p>
+				<p><span class="bold">Apply now!</span>  Sign in to start the written part of the application, and take the coding exam when you're ready. We look forward to getting to know you!</p>
 			</div>
 			<div class="reg float container" id="regCon">
 				<h3 class="reg title">Register</h3>

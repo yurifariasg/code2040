@@ -23,6 +23,10 @@ class ManagementController {
 		
 	}
 	
+	def login() {
+		redirect(controller:"login",action:"auth")
+	}
+	
 	@Secured(['ROLE_ADMIN'])
 	def getNotifications() {
 		int step
