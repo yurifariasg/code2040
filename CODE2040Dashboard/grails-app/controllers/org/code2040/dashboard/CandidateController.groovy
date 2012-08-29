@@ -12,12 +12,13 @@ class CandidateController {
 	def messageSource
 	def springSecurityService
 	def validationService
+	def emailConfirmationService
 	
 	private currentUser() {
 		return Candidate.get(springSecurityService.principal.id)
 	}
 	
-	//@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
+	@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
     def index() { 
 	}
 	
@@ -116,6 +117,8 @@ class CandidateController {
 				}
 			} else {
 				render "User Created sucessfully! ID: " + c.id
+				emailConfirmationService.sendConfirmation(c.email,
+				  "E-Mail Confirmation", [view:'/emailconfirmation/mail/confirmationRequest'], c.id)
 			}
 		} else {
 			render "Invalid Request"
