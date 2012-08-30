@@ -17,7 +17,7 @@ class Candidate extends SecUser {
 	int fellowYear
 	boolean needsReview = false
 	
-	List<Question> questions
+	List<Answer> answers
 	List<RecruitmentInfo> recruitmentInfo
 	
 	ArrayList<Comment> comments
