@@ -13,15 +13,35 @@ class CandidateController {
 	def springSecurityService
 	def validationService
 	def emailConfirmationService
+	def securityService
 	
 	private currentUser() {
 		return Candidate.get(springSecurityService.principal.id)
 	}
 	
-	@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
     def index() { 
 	}
 	
+	def emailconfirmation() {
+		String email = params.email
+		int uid
+		try {
+			uid = Integer.parseInt(params.uid)
+		} catch (Exception e) {
+			uid = -1
+		}
+		
+		if (uid == -1 || email == null) {
+			render "Couldnt verify your account"	
+		} else {
+			Candidate c = Candidate.get(uid)
+			c.enabled = true
+			c.save(flush: true)
+			render "Account Sucessfully Verified"	
+		}
+	}
+	
+	@Secured(['ROLE_USER'])
 	def application() {
 		
 	}
@@ -53,18 +73,31 @@ class CandidateController {
 				for (fieldErrors in c.errors) {
 				   for (error in fieldErrors.allErrors) {
 					  String message = messageSource.getMessage(error, locale)
-					  render message
+					  render view:'index', model:[error_message:message]
 					  return
 				   }
 				}
 			} else {
-				render "User Created sucessfully! ID: " + c.id
+			if (c.username.endsWith('@code2040.org')) {
+				emailConfirmationService.sendConfirmation(c.username, // Username == Email
+				  "E-Mail Confirmation", [view:'/emailconfirmation/mail/confirmationRequest'],
+				  String.valueOf(c.id))
+				c.enabled = false
+				c.save()
+				render(params:[message:"Please, verify your email"])
+			} else {
+				c.enabled = true
+				c.save(flush:true)
+				securityService.autoLogin(c.username, password)
+				redirect(controller:'candidate', action:'application')
+			}
 			}
 		} else {
-			render "Invalid Request"
+			render(params:[error_message:"Invalid Request"])
 		}
 	}
 	
+	@Secured(['ROLE_USER'])
 	def setBioInfo() {
 		
 		if (request.method == 'GET') {
@@ -117,8 +150,6 @@ class CandidateController {
 				}
 			} else {
 				render "User Created sucessfully! ID: " + c.id
-				emailConfirmationService.sendConfirmation(c.email,
-				  "E-Mail Confirmation", [view:'/emailconfirmation/mail/confirmationRequest'], c.id)
 			}
 		} else {
 			render "Invalid Request"

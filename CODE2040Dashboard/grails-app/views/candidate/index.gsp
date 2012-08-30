@@ -11,6 +11,12 @@
 		<div class="header">
 			<h1 class="site_title">CODE:2040</h1>
 			<h2 class="page_title">Welcome!</h2>
+			<g:if test='${message}'>
+				<div class='login_message'>Message: ${message}</div>
+			</g:if>
+			<g:if test='${error_message}'>
+				<div class='login_message'>Error: ${error_message}</div>
+			</g:if>
 		</div>
 		<div class="content">
 			<div class="float" id="about">

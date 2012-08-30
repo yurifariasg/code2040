@@ -7,7 +7,7 @@ class UrlMappings {
 			}
 		}
 		
-		"/"(view:"/index")
+		"/"(view: '/index') // This may change when we have our own index page
 		"500"(view:'/error')
 		
 		"/login/$action"(controller: "login")

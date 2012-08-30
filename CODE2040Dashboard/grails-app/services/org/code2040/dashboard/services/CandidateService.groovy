@@ -15,7 +15,7 @@ class CandidateService {
 	def createCandidateA(String email, String password){
 		Candidate c = new Candidate()
 		c.username = email
-		c.password = password // springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
+		c.password = password
 		c.fname = null;
 		c.lname = null;
 		c.school= null;
@@ -28,13 +28,11 @@ class CandidateService {
 		c.enabled = true // Enabled for Security Reasons
 		c.save(flush: true)
 		
-		//if (SecUser.findByUsername(email) != null){
-		//	return "User already exists"
-		//}
-		
-		// This links the candidate with the role ROLE_USER
-		SecRole q = SecRole.findByAuthority("ROLE_USER")
-		SecUserSecRole.create(c, q)
+		if (!c.hasErrors()) {
+			// This links the candidate with the role ROLE_USER
+			SecRole q = SecRole.findByAuthority("ROLE_USER")
+			SecUserSecRole.create(c, q)
+		}
 		return c
 	}
     def createCandidate(String fname, String lname, String school, String graduationDate, String email,
