@@ -10,7 +10,7 @@ class ActionItemsController {
 		def springSecurityService
 		def validationService
 		
-		private currentMangaer() {
+		private currentManager() {
 			return Manager.get(springSecurityService.principal.id)
 		}
 		
@@ -60,7 +60,7 @@ class ActionItemsController {
 		//accepts caniddate, comment adn step adn assignes a new comment to a candidate
 		@Secured(['ROLE_ADMIN'])
 		def update() {
-			/*int id = params.id
+			int id = params.id
 			Candidate can = Candidate.get(id)
 			if (can == null) {
 				render "Candidate not found"
@@ -72,6 +72,6 @@ class ActionItemsController {
 			com.author = currentManagerId()
 			can.comments.add (com)
 			if (can.hasErrors()) render "Errors with adding comments"
-			else render "Comments Added Sucessfully!"*/
+			else render "Comments Added Sucessfully!"
 		}
 }
