@@ -15,7 +15,8 @@
 				<div class='login_message'>Message: ${message}</div>
 			</g:if>
 			<g:if test='${error_message}'>
-				<div class='login_message'>Error: ${error_message}</div>
+				<div class='login_message'
+				style="background-color: #FF0000; color: #FFFFFF">Error: ${error_message}</div>
 			</g:if>
 		</div>
 		<div class="content">

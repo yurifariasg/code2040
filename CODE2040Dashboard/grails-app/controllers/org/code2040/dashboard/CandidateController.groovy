@@ -45,11 +45,6 @@ class CandidateController {
 		}
 	}
 	
-	@Secured(['ROLE_USER'])
-	def application() {
-		
-	}
-	
 	def login() {
 		redirect(controller:"login",action:"auth")
 	}
@@ -96,12 +91,8 @@ class CandidateController {
 	}
 	
 	@Secured(['ROLE_USER'])
-	def setBioInfo() {
-		/* Needs to be integrated */
-		
-		if (request.method == 'GET') {
-			redirect(controller:'candidate', action:'application')
-		} else if (request.method == 'POST') {
+	def application() {
+		if (request.method == 'POST') {
 		
 			String fname = params.fname
 			String lname = params.lname
@@ -116,14 +107,11 @@ class CandidateController {
 			String homeCountry = params.country
 			int fellowYear = Calendar.getInstance().get(Calendar.YEAR) // Get Always Current Year - ? Or let user decide ?
 			String homeState = params.homeState
-			
-			List<Question> questions
-			List<RecruitmentInfo> recruitmentInfo
+			List<Answer> answers = candidateService.parseAnswers(params.questions)
 			
 			String err = validationService.validateCandidateParams(
 				fname, lname, school, graduationDate, email, password, secondPassword, phoneNumber,
-				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
-				homeState)
+				gender, race, homeCountry, fellowYear, answers, homeState)
 			
 			if (err != null) {
 				render err
@@ -131,9 +119,7 @@ class CandidateController {
 			}
 			Candidate c = candidateService.createCandidate(
 				fname, lname, school, graduationDate, email, password, phoneNumber,
-				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
-				homeState
-				)
+				gender, race, homeCountry, fellowYear, answers, homeState)
 			if (c.hasErrors()) {
 				def locale = Locale.getDefault()
 				for (fieldErrors in c.errors) {
@@ -144,10 +130,8 @@ class CandidateController {
 				   }
 				}
 			} else {
-				render "User Created sucessfully! ID: " + c.id
+				render "true"
 			}
-		} else {
-			render "Invalid Request"
 		}
 	}
 	

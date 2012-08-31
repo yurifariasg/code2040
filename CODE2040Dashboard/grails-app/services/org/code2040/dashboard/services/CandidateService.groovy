@@ -1,5 +1,6 @@
 package org.code2040.dashboard.services
 
+import org.code2040.dashboard.Answer
 import org.code2040.dashboard.Candidate
 import org.code2040.dashboard.ApplicationStep
 import org.code2040.dashboard.Question
@@ -7,6 +8,7 @@ import org.code2040.dashboard.RecruitmentInfo
 import org.code2040.dashboard.SecUserSecRole
 import org.code2040.dashboard.SecRole
 import org.code2040.dashboard.CandidateStatus
+import org.json.simple.JSONObject
 
 
 class CandidateService {
@@ -37,7 +39,7 @@ class CandidateService {
 	}
     def createCandidate(String fname, String lname, String school, String graduationDate, String email,
 		String password, String phoneNumber, char gender, String race, String homeCountry,
-		int fellowYear, List<Question> questions, List<RecruitmentInfo> recruitmentInfo,
+		int fellowYear, List<Answer> answers, List<RecruitmentInfo> recruitmentInfo,
 		String homeState) {
 		Candidate c = new Candidate()
 		c.fname = fname
@@ -51,10 +53,8 @@ class CandidateService {
 		c.race = race
 		c.homeCountry = homeCountry
 		c.fellowYear = fellowYear
-		//c.questions.addAll(questions)
-		//c.recruitmentInfo.addAll(recruitmentInfo)
+		c.answers.addAll(answers)
 		c.homeState = homeState
-		c.enabled = true // Enabled for Security Reasons
 		c.save(flush: true)
 		
 		// This links the candidate with the role ROLE_USER
@@ -134,5 +134,28 @@ class CandidateService {
 			return c
 		else
 			return null
+	}
+	
+	def parseAnswers(String json) {
+		ArrayList<Answer> answers = new ArrayList<Answer>()
+		JSONObject jsonObject = new JSONObject(json)
+		for (String key : jsonObject.keySet()) {
+			int qID
+			try {
+				qID = Long.parseLong(key)
+			} catch (Exception e) {
+				qID = -1
+			}
+			Question q = Question.get(qID)
+			if (q != null) {
+				
+				Answer a = new Answer()
+				a.questionId = qID
+				a.answer = jsonObject.get(key)
+				a.save()
+				answers.add(a)
+			}
+		}
+		return answers
 	}
 }

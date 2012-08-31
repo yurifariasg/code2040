@@ -2,6 +2,7 @@ package org.code2040.dashboard.services
 
 import java.util.List;
 
+import org.code2040.dashboard.Answer
 import org.code2040.dashboard.Question;
 import org.code2040.dashboard.RecruitmentInfo;
 
@@ -9,24 +10,23 @@ class ValidationService {
 
 	def validateCandidateCreate(String email, String password, String secondPassword){
 		if (email == null){
-			return "Email is null"
+			return "Email is blank"
 		}
 		if (password == null){
-			return "Email is null"
+			return "Email is blank"
 		}
 		if (secondPassword == null){
-			return "SecondPassword is null"
+			return "Confirmation Password is blank"
 		}
 		
 		if (password != secondPassword){
-			return "The passwords do not match"
+			return "Passwords doesn't match"
 		}
 	}
 	
     def validateCandidateParams(String fname, String lname, String school, String graduationDate, String email,
 		String password, String secondPassword, String phoneNumber, char gender, String race,
-		String homeCountry, int fellowYear, List<Question> questions,
-		List<RecruitmentInfo> recruitmentInfo, String homeState) {
+		String homeCountry, int fellowYear, List<Answer> answers, String homeState) {
 		
 		// Name
 		if (basicValidation(fname, 2))
@@ -77,8 +77,6 @@ class ValidationService {
 			return "Year is older than today"
 		
 		// TODO: Questions
-			
-		// TODO: Recruitment Info
 			
 		return null
     }

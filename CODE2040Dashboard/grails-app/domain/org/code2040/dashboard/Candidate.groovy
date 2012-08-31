@@ -17,9 +17,7 @@ class Candidate extends SecUser {
 	boolean needsReview = false
 	String homeState
 	
-	List<Question> questions
-	List<RecruitmentInfo> recruitmentInfo
-	
+	List<Answer> answers
 	ArrayList<Comment> comments
 	
 	long timeCreated = System.currentTimeMillis()

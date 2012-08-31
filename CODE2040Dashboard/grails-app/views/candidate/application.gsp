@@ -13,7 +13,7 @@
 		</div>
 		<div class="content">
 			<h3 class="form title">The Facts</h3>
-				
+			<form class="reg submission" action="" method="post">
 				<div class="float">
 					<div class="row">
 						<label for="app_fname">First Name:</label><br/>
