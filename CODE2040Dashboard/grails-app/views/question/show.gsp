@@ -23,15 +23,6 @@
 			</g:if>
 			<ol class="property-list question">
 			
-				<g:if test="${questionInstance?.beingUsed}">
-				<li class="fieldcontain">
-					<span id="beingUsed-label" class="property-label"><g:message code="question.beingUsed.label" default="Being Used" /></span>
-					
-						<span class="property-value" aria-labelledby="beingUsed-label"><g:formatBoolean boolean="${questionInstance?.beingUsed}" /></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${questionInstance?.description}">
 				<li class="fieldcontain">
 					<span id="description-label" class="property-label"><g:message code="question.description.label" default="Description" /></span>

@@ -1,24 +1,29 @@
 package org.code2040.dashboard
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class QuestionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+	
+	@Secured(['ROLE_ADMIN'])
     def index() {
         redirect(action: "list", params: params)
     }
-
+	
+	@Secured(['ROLE_ADMIN'])
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [questionInstanceList: Question.list(params), questionInstanceTotal: Question.count()]
     }
-
+	
+	@Secured(['ROLE_ADMIN'])
     def create() {
         [questionInstance: new Question(params)]
     }
-
+	
+	@Secured(['ROLE_ADMIN'])
     def save() {
         def questionInstance = new Question(params)
         if (!questionInstance.save(flush: true)) {
@@ -30,6 +35,7 @@ class QuestionController {
         redirect(action: "show", id: questionInstance.id)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def show() {
         def questionInstance = Question.get(params.id)
         if (!questionInstance) {
@@ -41,6 +47,7 @@ class QuestionController {
         [questionInstance: questionInstance]
     }
 
+	@Secured(['ROLE_ADMIN'])
     def edit() {
         def questionInstance = Question.get(params.id)
         if (!questionInstance) {
@@ -51,7 +58,8 @@ class QuestionController {
 
         [questionInstance: questionInstance]
     }
-
+	
+	@Secured(['ROLE_ADMIN'])
     def update() {
         def questionInstance = Question.get(params.id)
         if (!questionInstance) {
@@ -82,6 +90,7 @@ class QuestionController {
         redirect(action: "show", id: questionInstance.id)
     }
 
+	@Secured(['ROLE_ADMIN'])
     def delete() {
         def questionInstance = Question.get(params.id)
         if (!questionInstance) {

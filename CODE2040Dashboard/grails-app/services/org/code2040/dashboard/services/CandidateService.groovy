@@ -63,27 +63,76 @@ class CandidateService {
 		return c
     }
 	
-	def approveCandidate(int candidateID) {
-		Candidate c = Candidate.get(candidateID)
-		if (c == null) return null
-		
-		ApplicationStep ps = c.currentStep
-		if (ps != ApplicationStep.FOURTH_STEP) {
-			ps.increment()
-			c.currentStep = ps
-			return c.save()
-		} else if (c.status == CandidateStatus.CANDIDATE) {
-			c.status = CandidateStatus.CURRENT_FELLOW
-		} else if (c.status == CandidateStatus.CURRENT_FELLOW) {
-			c.status = CandidateStatus.ALUMNI
+	def approveCandidate(String cID, long staffID) {
+		Candidate c = getCandidate(cID)
+		if (c != null && c.status != CandidateStatus.DENIED && c.lockedBy == staffID) {
+			ApplicationStep ps = c.currentStep
+			if (ps != ApplicationStep.FOURTH_STEP) {
+				ps.increment()
+				c.currentStep = ps
+			} else if (c.status == CandidateStatus.CANDIDATE) {
+				c.status = CandidateStatus.CURRENT_FELLOW
+			} else if (c.status == CandidateStatus.CURRENT_FELLOW) {
+				c.status = CandidateStatus.ALUMNI
+			}
+			c.save()
+			return true
 		}
-		return c
+		return false
 	}
 	
-	def denyCandidate(int candidateID) {
-		Candidate c = Candidate.get(candidateID)
-		if (c == null) return null
-		c.status = CandidateStatus.DENIED
-		return c
+	def denyCandidate(String cID, long staffID) {
+		Candidate c = getCandidate(cID)
+		if (c != null && c.status != CandidateStatus.DENIED && c.lockedBy == staffID) {
+			c.status = CandidateStatus.DENIED
+			c.save()
+			return true
+		} else {
+			return false
+		}
+	}
+	
+	def lockCandidate(String cID, long staffID) {
+		Candidate c = getCandidate(cID)
+		if (c != null) {
+			println "Time Before: " + c.timeLocked
+			if (!c.locked || (// Lock remains until 30 minutes
+							c.timeLocked + 1800000 < System.currentTimeMillis())) {
+				c.locked = true
+				c.lockedBy = staffID
+				c.timeLocked = System.currentTimeMillis()
+				c.save()
+				return true
+			}
+		}
+		return false
+	}
+	
+	def unlockCandidate(String cID, long staffID) {
+		Candidate c = getCandidate(cID)
+		if (c != null) {
+			if (c.lockedBy == staffID) {
+				c.locked = false
+				c.lockedBy = -1
+				c.timeLocked = -1
+				c.save()
+				return true
+			}
+		}
+		return false
+	}
+	
+	def getCandidate(String strId) {
+		long id
+		try {
+			id = Long.parseLong(strId)
+		} catch (Exception e) {
+			id = -1
+		}
+		Candidate c = Candidate.get(id)
+		if (c != null)
+			return c
+		else
+			return null
 	}
 }

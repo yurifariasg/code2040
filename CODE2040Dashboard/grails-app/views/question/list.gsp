@@ -24,8 +24,6 @@
 				<thead>
 					<tr>
 						<g:sortableColumn property="id" title="${message(code: 'question.beingUsed.label', default: 'Question ID')}" />
-						<g:sortableColumn property="beingUsed" title="${message(code: 'question.beingUsed.label', default: 'Currently Used')}" />
-					
 						<g:sortableColumn property="description" title="${message(code: 'question.description.label', default: 'Question')}" />
 					
 					</tr>
@@ -34,7 +32,6 @@
 				<g:each in="${questionInstanceList}" status="i" var="questionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						<td><g:link action="show" id="${questionInstance.id}">${fieldValue(bean: questionInstance, field: "id")}</g:link></td>
-						<td><g:if test="${fieldValue(bean: questionInstance, field: "beingUsed")}">Insert a checked box here</g:if><g:else>Insert a not checked box here</g:else></td>
 						<td>${fieldValue(bean: questionInstance, field: "description")}</td>
 					</tr>
 				</g:each>

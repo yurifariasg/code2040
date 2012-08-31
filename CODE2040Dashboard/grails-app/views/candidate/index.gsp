@@ -42,27 +42,33 @@
 				<p><span class="bold">What's with the name?</span>  The year 2040 is the year in which people of color will become the majority in the US. We want to make sure people of color are well represented in America's most innovative economies, like Silicon Valley, by that same year.</p>
 				<p><span class="bold">Apply now!</span>  Sign in to start the written part of the application, and take the coding exam when you're ready. We look forward to getting to know you!</p>
 			</div>
-			<div class="reg float container" id="regCon">
-				<h3 class="reg title">Register</h3>
-				<form class="reg submission" action="create" method="post">
-					<div class="elem_containter">
-						<label for="reg_email">Email:</label><br/>
-						<input type="text" id="reg_email" name="email"/>
-					</div>
-					<div class="elem_containter">
-						<label for="reg_password">Password:</label><br/>
-						<input type="password" id="reg_password" name="password"/>
-					</div>
-					<div class="elem_containter">
-						<label for="reg_retype">Retype password:</label><br/>
-						<input type="password" id="reg_retype" name="retry"/>
-					</div>
-					<div class="elem_containter">
-						<a href="login" id="switch_log">Need to login?</a>
-						<input type="submit" value="Register"/>
-					</div>
-				</form>
-			</div>	
+			<sec:ifNotLoggedIn>
+				<div class="reg float container" id="regCon">
+					<h3 class="reg title">Register</h3>
+					<form class="reg submission" action="create" method="post">
+						<div class="elem_containter">
+							<label for="reg_email">Email:</label><br/>
+							<input type="text" id="reg_email" name="email"/>
+						</div>
+						<div class="elem_containter">
+							<label for="reg_password">Password:</label><br/>
+							<input type="password" id="reg_password" name="password"/>
+						</div>
+						<div class="elem_containter">
+							<label for="reg_retype">Retype password:</label><br/>
+							<input type="password" id="reg_retype" name="retry"/>
+						</div>
+						<div class="elem_containter">
+							<a href="login" id="switch_log">Need to login?</a>
+							<input type="submit" value="Register"/>
+						</div>
+					</form>
+				</div>
+			</sec:ifNotLoggedIn>
+			<sec:ifLoggedIn>
+				Hello World</br>
+				<a href="logout" id="switch_log">Logout</a>
+			</sec:ifLoggedIn>
 		</div>
 	</body>
 </html>
