@@ -75,6 +75,7 @@ class CandidateService {
 			} else if (c.status == CandidateStatus.CURRENT_FELLOW) {
 				c.status = CandidateStatus.ALUMNI
 			}
+			c.skipped = false
 			c.save()
 			return true
 		}
@@ -85,6 +86,7 @@ class CandidateService {
 		Candidate c = getCandidate(cID)
 		if (c != null && c.status != CandidateStatus.DENIED && c.lockedBy == staffID) {
 			c.status = CandidateStatus.DENIED
+			c.skipped = false
 			c.save()
 			return true
 		} else {

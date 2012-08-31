@@ -16,6 +16,7 @@ class Candidate extends SecUser {
 	int fellowYear
 	boolean needsReview = false
 	String homeState
+	boolean skipped = false
 	
 	List<Answer> answers
 	ArrayList<Comment> comments

@@ -198,5 +198,17 @@ class CandidateController {
 			render "false"
 		}
 	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def skip() {
+		Candidate c = candidateService.getCandidate(params.id)
+		if (c != null) {
+			c.skipped = true
+			c.save()
+			render "true"
+		} else {
+			render "false"
+		}
+	}
 }
 	
