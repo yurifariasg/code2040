@@ -14,6 +14,10 @@ class ActionItemsController {
 			return Manager.get(springSecurityService.principal.id)
 		}
 		
+		private currentManagerId(){
+			return springSecurityService.principal.id
+		}
+		
 		@Secured(['ROLE_ADMIN'])
 			def index() {
 			render "Hello! This is the Comments Controller.. We're still working on it!\n" +
@@ -33,7 +37,7 @@ class ActionItemsController {
 				return
 			}
 			c.resolved = true
-			c.approverManager = currentMangaer()
+			c.approverManager = currentManagerId()
 			c.timeApproved = System.currentTimeMillis()
 			
 		}
@@ -65,7 +69,7 @@ class ActionItemsController {
 			Comment com = new Comment()
 			com.comment = params.comment
 			com.step = params.step
-			com.author = currentMangaer()
+			com.author = currentManagerId()
 			can.comments.add (com)
 			if (can.hasErrors()) render "Errors with adding comments"
 			else render "Comments Added Sucessfully!"*/
