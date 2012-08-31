@@ -75,10 +75,23 @@ class ValidationService {
 		// Fellow Year
 		if (Calendar.getInstance().get(Calendar.YEAR) > fellowYear)
 			return "Year is older than today"
-		
-		// TODO: Questions
-			
-		// TODO: Recruitment Info
+		// Question
+		for(Question question:questions){
+			if (basicValidation(question.description, 3))
+			return "A question is too short. Must be at least 3 letters"
+		}
+
+		// Recruitment Info
+		for(RecruitmentInfo info:recruitmentInfo){
+			if (basicValidation(info.fname, 2))
+				return "A name in a recruitment field is too short. Must be at least 2 letters"
+			if (basicValidation(info.lname, 2))
+				return "A name in a recruitment field is too short. Must be at least 2 letters"
+			if (basicValidation(info.email, 3))
+				return "An email in a recruitment field is too short. Must be at least 3 letters"
+			if (basicValidation(info.title, 3))
+				return "A title in a recruitment field is too short. Must be at least 3 letters"
+		}
 			
 		return null
     }
