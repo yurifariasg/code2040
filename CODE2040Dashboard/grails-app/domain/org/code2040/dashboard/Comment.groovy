@@ -4,9 +4,10 @@ class Comment {
 
 	ApplicationStep step
 	String comment
-	int mangagerId
-	int approverManagerId
+	Manager author
+	Manager approverManager
 	int timeCreated = System.currentTimeMillis()
+	int timeApproved
 	boolean resolved = false
 	
 	
