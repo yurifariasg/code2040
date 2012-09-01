@@ -75,9 +75,14 @@ class ValidationService {
 		// Fellow Year
 		if (Calendar.getInstance().get(Calendar.YEAR) > fellowYear)
 			return "Year is older than today"
-		
-		// TODO: Questions
-			
+
+		// Question
+		if (answers != null) {
+			for(Answer answer : answers) {
+				if (basicValidation(answer.description, 3))
+					return "A question is too short. Must be at least 3 letters"
+			}
+		}
 		return null
     }
 		

@@ -5,6 +5,6 @@ class Question {
 	String description
 
     static constraints = {
-		description blank:false
+		description minSize:2, blank:false, nullable:true
     }
 }

@@ -3,9 +3,11 @@ package org.code2040.dashboard
 class Answer {
 	
 	long questionId
-	String answer
-
+	int candidateID
+	int questionID
+	String description
+	
     static constraints = {
-		answer blank:false
+		description minSize:2, blank:false, nullable:true
     }
 }
