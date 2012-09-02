@@ -20,7 +20,7 @@ class Candidate extends SecUser {
 	List<Answer> answers
 	List<RecruitmentInfo> recruitmentInfo
 	
-	ArrayList<Comment> comments
+	ArrayList<Comment> comments = new ArrayList<Comment>()
 	
 	int timeCreated = System.currentTimeMillis()
 	int timeModified = System.currentTimeMillis()
