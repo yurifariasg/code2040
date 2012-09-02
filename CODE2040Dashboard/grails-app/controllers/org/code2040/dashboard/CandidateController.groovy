@@ -12,64 +12,87 @@ class CandidateController {
 	def messageSource
 	def springSecurityService
 	def validationService
+	def emailConfirmationService
+	def securityService
 	
-	private currentUser() {
+	private currentCandidate() {
 		return Candidate.get(springSecurityService.principal.id)
 	}
 	
-	//@Secured(['ROLE_USER']) // IS_AUTHENTICATED_FULLY - IF WE NEED MORE SECURITY [ MAKES USER AUTHENTICATES AGAIN ]
+	private currentManager() {
+		return Manager.get(springSecurityService.principal.id)
+	}
+	
     def index() { 
 	}
 	
-	def application() {
+	def emailconfirmation() {
+		String email = params.email
+		long uid
+		try {
+			uid = Long.parseLong(params.uid)
+		} catch (Exception e) {
+			uid = -1
+		}
 		
+		if (uid == -1 || email == null) {
+			render "Couldnt verify your account"	
+		} else {
+			Candidate c = Candidate.get(uid)
+			c.enabled = true
+			c.save(flush: true)
+			render "Account Sucessfully Verified"	
+		}
 	}
 	
 	def login() {
 		redirect(controller:"login",action:"auth")
 	}
+
+	def logout() {
+		redirect(controller:"logout",action:"index")
+	}
 	
-	def create(){
-		if (request.method == 'GET') {
-			def htmlContent = new File('grails-app/views/candidate_create.html').text
-			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
-		} else if (request.method == 'POST') {
-			String email = params.email
-			String password = params.password
-			String secondPassword = params.retry
-			String err = validationService.validateCandidateCreate(email, password, secondPassword)
-			
-			if (err != null) {
-				 // SEND THE ERROR!...
-				render err
-				return
-				//def htmlContent = new File('grails-app/views/login.html').text
-				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
-			}
-			Candidate c = candidateService.createCandidateA(email, password)
-			if (c.hasErrors()) {
-				def locale = Locale.getDefault()
-				for (fieldErrors in c.errors) {
-				   for (error in fieldErrors.allErrors) {
-					  String message = messageSource.getMessage(error, locale)
-					  render message
-					  return
-				   }
-				}
-			} else {
-				render "User Created sucessfully! ID: " + c.id
+	def create() {
+		String email = params.email
+		String password = params.password
+		String secondPassword = params.retry
+		String err = validationService.validateCandidateCreate(email, password, secondPassword)
+		
+		if (err != null) {
+			 render view:'index', model:[error_message:err]
+			 return
+		}
+		Candidate c = candidateService.createCandidateA(email, password)
+		if (c.hasErrors()) {
+			def locale = Locale.getDefault()
+			for (fieldErrors in c.errors) {
+			   for (error in fieldErrors.allErrors) {
+				  String message = messageSource.getMessage(error, locale)
+				  render view:'index', model:[error_message:message]
+				  return
+			   }
 			}
 		} else {
-			render "Invalid Request"
+			if (c.username.endsWith('@code2040.org')) {
+				emailConfirmationService.sendConfirmation(c.username, // Username == Email
+				  "E-Mail Confirmation", [view:'/emailconfirmation/mail/confirmationRequest'],
+				  String.valueOf(c.id))
+				c.enabled = false
+				c.save()
+				render(params:[message:"Please, verify your email"])
+			} else {
+				c.enabled = true
+				c.save(flush:true)
+				securityService.autoLogin(c.username, password)
+				redirect(controller:'candidate', action:'application')
+			}
 		}
 	}
 	
-	def setBioInfo() {
-		
-		if (request.method == 'GET') {
-			def htmlContent = new File('grails-app/views/candidate_app.html').text
-			render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
-		} else if (request.method == 'POST') {
+	@Secured(['ROLE_USER'])
+	def application() {
+		if (request.method == 'POST') {
 		
 			String fname = params.fname
 			String lname = params.lname
@@ -84,27 +107,19 @@ class CandidateController {
 			String homeCountry = params.country
 			int fellowYear = Calendar.getInstance().get(Calendar.YEAR) // Get Always Current Year - ? Or let user decide ?
 			String homeState = params.homeState
-			
-			List<Question> questions
-			List<RecruitmentInfo> recruitmentInfo
+			List<Answer> answers = candidateService.parseAnswers(params.questions)
 			
 			String err = validationService.validateCandidateParams(
 				fname, lname, school, graduationDate, email, password, secondPassword, phoneNumber,
-				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
-				homeState)
+				gender, race, homeCountry, fellowYear, answers, homeState)
 			
 			if (err != null) {
-				 // SEND THE ERROR!...
 				render err
 				return
-				//def htmlContent = new File('grails-app/views/login.html').text
-				//render text: htmlContent, contentType:"text/html", encoding:"UTF-8"
 			}
 			Candidate c = candidateService.createCandidate(
 				fname, lname, school, graduationDate, email, password, phoneNumber,
-				gender, race, homeCountry, fellowYear, questions, recruitmentInfo,
-				homeState
-				)
+				gender, race, homeCountry, fellowYear, answers, homeState)
 			if (c.hasErrors()) {
 				def locale = Locale.getDefault()
 				for (fieldErrors in c.errors) {
@@ -115,16 +130,19 @@ class CandidateController {
 				   }
 				}
 			} else {
-				render "User Created sucessfully! ID: " + c.id
+				render "true"
 			}
-		} else {
-			render "Invalid Request"
 		}
 	}
 	
 	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def update() {
-		int id = params.id
+		long id
+		try {
+			id = Long.parseLong(params.id)
+		} catch (Exception e) {
+			id = -1
+		}
 		Candidate c = Candidate.get(id)
 		if (c == null) {
 			render "Candidate not found"
@@ -140,7 +158,57 @@ class CandidateController {
 		else render "User Updated Sucessfully!"
 	}
 	
+	@Secured(['ROLE_ADMIN'])
 	def delete() {
 		
 	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def lock() {
+		if (candidateService.lockCandidate(params.id, currentManager().id)) {
+			render "true"
+		} else {
+			render "false"
+		}
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def unlock() {
+		if (candidateService.unlockCandidate(params.id, currentManager().id)) {
+			render "true"
+		} else {
+			render "false"
+		}
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def approve() {
+		if (candidateService.approveCandidate(params.id, currentManager().id)) {
+			render "true"
+		} else {
+			render "false"
+		}
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def deny() {
+		if (candidateService.denyCandidate(params.id, currentManager().id)) {
+			render "true"
+		} else {
+			render "false"
+		}
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def skip() {
+		Candidate c = candidateService.getCandidate(params.id)
+		if (c != null) {
+			c.skipped = true
+			c.save()
+			render "true"
+		} else {
+			render "false"
+		}
+	}
 }
+	

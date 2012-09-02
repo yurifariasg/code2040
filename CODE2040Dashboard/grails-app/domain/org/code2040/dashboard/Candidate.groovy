@@ -7,7 +7,6 @@ class Candidate extends SecUser {
 	String lname
 	String school
 	String graduationDate
-	//String password
 	String phoneNumber
 	ApplicationStep currentStep = ApplicationStep.FIRST_STEP
 	CandidateStatus status = CandidateStatus.CANDIDATE
@@ -16,32 +15,31 @@ class Candidate extends SecUser {
 	String homeCountry
 	int fellowYear
 	boolean needsReview = false
+	String homeState
+	boolean skipped = false
 	
 	List<Answer> answers
-	List<RecruitmentInfo> recruitmentInfo
-	
 	ArrayList<Comment> comments = new ArrayList<Comment>()
 	
-	int timeCreated = System.currentTimeMillis()
-	int timeModified = System.currentTimeMillis()
-	int timeRemoved = 0
-	int lastLogin = 0
+	long timeCreated = System.currentTimeMillis()
+	long timeModified = System.currentTimeMillis()
+	long timeRemoved = 0
+	long lastLogin = 0
 	
-	// Optional
-	String homeState
+	// Locking
+	boolean locked = false
+	long lockedBy = -1
+	long timeLocked = -1
 
     static constraints = {
 		fname minSize:3, blank:false, nullable:true
 		lname minSize:3, blank:false, nullable:true
-		//password minSize:6, blank:false
 		school minSize:2, blank:false, nullable:true
 		graduationDate blank:false, nullable:true
-		// username email: true, blank: false
 		phoneNumber blank:false, nullable:true
 		gender blank:false, nullable:true
 		race blank:false, nullable:true
 		homeCountry minSize:3, blank:false, nullable:true
 		homeState nullable:true
-		
 	}
 }

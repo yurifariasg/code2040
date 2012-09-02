@@ -1,0 +1,14 @@
+img, h4 {
+	display: inline;
+	margin: 5px;
+}
+
+div.content {
+	text-align: left;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+div.subaccordian {
+	padding-left: 30px;
+}

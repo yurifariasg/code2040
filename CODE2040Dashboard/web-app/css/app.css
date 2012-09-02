@@ -13,7 +13,7 @@ div.content {
 	padding-top: 50px;
 }
 
-div.hidden {
+.hidden {
 	display:none;
 }
 
@@ -23,4 +23,8 @@ div.float {
 
 div.row {
 	clear: both;
+}
+
+.bold {
+	font-weight: bold;
 }

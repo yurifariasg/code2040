@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
-		<title>CODE:2040 - Applicant</title>
+		<title>CODE:2040 - Login</title>
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'cv_login.css')}" />
 		<g:javascript src="login.js" />
@@ -28,7 +28,7 @@
 						<input type="password" id="log_password" name="j_password"/>
 					</div>
 					<div class="elem_containter">	
-						<a href="index" id="switch_reg">Need to register?</a>
+						<a href="/CODE2040Dashboard/candidate/index" id="switch_reg">Need to register?</a>
 						<input type="submit" value="Login"/>
 					</div>
 				</form>

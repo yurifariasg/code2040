@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>CODE:2040 - Staff</title>
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
@@ -13,24 +13,7 @@
 			<h2 class="page_title">CODE:2040</h2>
 		</div>
 		<div class="content">
-			<div class="log container" id="logCon">
-				<h3 class="log title">Login</h3>
-				<form class="log submission" action="" method="post">
-					<div class="elem_containter">
-						<label for="log_email">Email:</label><br/>
-						<input type="text" id="log_email"/>
-					</div>
-					<div class="elem_containter">	
-						<label for="log_password">Password:</label><br/>
-						<input type="password" id="log_password"/>
-					</div>
-					<div class="elem_containter">	
-						<a href="#" id="switch_reg" onclick="switchToRegistration()">Need to register?</a>
-						<input type="submit" value="Login"/>
-					</div>
-				</form>
-			</div>
-			<div class="reg container hidden" id="regCon">
+			<div class="reg container" id="regCon">
 				<h3 class="reg title">Register</h3>
 				<form class="reg submission" action="create" method="post">
 					<div class="elem_containter">
@@ -54,7 +37,7 @@
 						<input type="password" id="reg_retype" name="retry"/>
 					</div>
 					<div class="elem_containter">
-						<a href="#" id="switch_log" onclick="switchToLogin()">Already registered?</a>
+						<a href="login" id="switch_log">Already registered?</a>
 						<input type="submit" value="Register"/>
 					</div>
 				</form>

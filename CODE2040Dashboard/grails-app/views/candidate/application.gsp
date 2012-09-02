@@ -1,19 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>CODE:2040 - Application</title>
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'app.css')}" />
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file:'cv_app.css')}" />
+		<g:javascript src="app.js" />
 		<blueprint:resources/>
 	</head>
-	<body>
+	<body onLoad="javascript: onLoadHandler()">
 		<div class="header">
 			<h1 class="site_title">CODE:2040</h1>
 			<h2 class="page_title">Step 1: Fill out application</h2>
 		</div>
 		<div class="content">
 			<h3 class="form title">The Facts</h3>
-				
+			<g:if test='${error_message}'>
+				<div class='login_message'
+				style="background-color: #FF0000; color: #FFFFFF">Error: ${error_message}</div>
+			</g:if>
+			<form class="reg submission" action="" method="post">
 				<div class="float">
 					<div class="row">
 						<label for="app_fname">First Name:</label><br/>
@@ -21,7 +26,10 @@
 					</div>
 					<div class="row">
 						<label for="app_school">College:</label><br/>
-						<input type="text" id="app_school" name="school"/>
+						<select id="app_school" name="school">
+						
+						</select>
+						<input class="hidden" type="text" id="app_school" name="school"/>
 					</div>
 					<div class="row">
 						<label for="app_state">Home state:</label><br/>
@@ -34,12 +42,12 @@
 				</div>
 				<div class="float">
 					<div class="row">
-						<label for="app_lname">Last Name:</label><br/>
-						<input type="text" id="app_lname" name="lname"/>
+						<label for="app_mname">Middle Name:</label><br/>
+						<input type="text" id="app_mname" name="mname"/>
 					</div>
 					<div class="row">
-						<label for="app_grad_yr">Expected graduation year:</label><br/>
-						<input type="text" id="app_grad_yr" name="gradDate"/>
+						<label for="app_grad_yr">Expected graduation date:</label><br/>
+						<input type="date" id="app_grad_yr" name="gradDate"/>
 					</div>
 					<div class="row">
 						<label for="app_country">Home country:</label><br/>
@@ -47,6 +55,10 @@
 					</div>	
 				</div>
 				<div class="float">
+				<div class="row">
+						<label for="app_lname">Last Name:</label><br/>
+						<input type="text" id="app_lname" name="lname"/>
+					</div>
 					<div class="row">
 						<label for="app_gender">Gender:</label><br/>
 						<select id="app_gender" name="gender">

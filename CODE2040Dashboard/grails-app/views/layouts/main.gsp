@@ -21,7 +21,7 @@
 		<div id="logo" role="banner"><center></br>
 			<div><font size=50>CODE:2040</font></div></center></br></br></div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo" align="right">Copyright CODE:2040 Fellows - These guys are awesome</div>
+		<div class="footer" role="contentinfo" align="right">Copyright CODE:2040</div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
         <r:layoutResources />

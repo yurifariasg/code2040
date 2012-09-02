@@ -2,6 +2,7 @@ package org.code2040.dashboard.services
 
 import java.util.List;
 
+import org.code2040.dashboard.Answer
 import org.code2040.dashboard.Question;
 import org.code2040.dashboard.RecruitmentInfo;
 
@@ -9,24 +10,23 @@ class ValidationService {
 
 	def validateCandidateCreate(String email, String password, String secondPassword){
 		if (email == null){
-			return "Email is null"
+			return "Email is blank"
 		}
 		if (password == null){
-			return "Email is null"
+			return "Email is blank"
 		}
 		if (secondPassword == null){
-			return "SecondPassword is null"
+			return "Confirmation Password is blank"
 		}
 		
 		if (password != secondPassword){
-			return "The passwords do not match"
+			return "Passwords doesn't match"
 		}
 	}
 	
     def validateCandidateParams(String fname, String lname, String school, String graduationDate, String email,
 		String password, String secondPassword, String phoneNumber, char gender, String race,
-		String homeCountry, int fellowYear, List<Question> questions,
-		List<RecruitmentInfo> recruitmentInfo, String homeState) {
+		String homeCountry, int fellowYear, List<Answer> answers, String homeState) {
 		
 		// Name
 		if (basicValidation(fname, 2))
@@ -75,24 +75,14 @@ class ValidationService {
 		// Fellow Year
 		if (Calendar.getInstance().get(Calendar.YEAR) > fellowYear)
 			return "Year is older than today"
-		// Question
-		for(Question question:questions){
-			if (basicValidation(question.description, 3))
-			return "A question is too short. Must be at least 3 letters"
-		}
 
-		// Recruitment Info
-		for(RecruitmentInfo info:recruitmentInfo){
-			if (basicValidation(info.fname, 2))
-				return "A name in a recruitment field is too short. Must be at least 2 letters"
-			if (basicValidation(info.lname, 2))
-				return "A name in a recruitment field is too short. Must be at least 2 letters"
-			if (basicValidation(info.email, 3))
-				return "An email in a recruitment field is too short. Must be at least 3 letters"
-			if (basicValidation(info.title, 3))
-				return "A title in a recruitment field is too short. Must be at least 3 letters"
+		// Question
+		if (answers != null) {
+			for(Answer answer : answers) {
+				if (basicValidation(answer.description, 3))
+					return "A question is too short. Must be at least 3 letters"
+			}
 		}
-			
 		return null
     }
 		
