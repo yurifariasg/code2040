@@ -11,5 +11,9 @@ div.float {
 	text-align: center;
 }
 
+#app_school {
+	max-width: 25%;
+}
+
 div.row {
 }
