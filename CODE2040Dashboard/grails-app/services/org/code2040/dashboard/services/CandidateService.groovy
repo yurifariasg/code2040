@@ -153,7 +153,7 @@ class CandidateService {
 				
 				Answer a = new Answer()
 				a.questionId = qID
-				a.answer = jsonObject.get(key)
+				a.description = jsonObject.get(key)
 				a.save()
 				answers.add(a)
 			}
