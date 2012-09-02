@@ -98,9 +98,6 @@ class CandidateController {
 			String lname = params.lname
 			String school = params.school
 			String graduationDate = params.gradDate
-			String email = params.email
-			String password = params.password
-			String secondPassword = params.retry
 			String phoneNumber = params.phone
 			char gender = params.gender != null ? params.gender.charAt(0) : null
 			String race = params.race
@@ -110,7 +107,7 @@ class CandidateController {
 			List<Answer> answers = candidateService.parseAnswers(params.questions)
 			
 			String err = validationService.validateCandidateParams(
-				fname, lname, school, graduationDate, email, password, secondPassword, phoneNumber,
+				fname, lname, school, graduationDate, phoneNumber,
 				gender, race, homeCountry, fellowYear, answers, homeState)
 			
 			if (err != null) {

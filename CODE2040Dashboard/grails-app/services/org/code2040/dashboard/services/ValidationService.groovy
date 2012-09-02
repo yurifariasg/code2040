@@ -1,10 +1,9 @@
 package org.code2040.dashboard.services
 
 import java.util.List;
-
 import org.code2040.dashboard.Answer
 import org.code2040.dashboard.Question;
-import org.code2040.dashboard.RecruitmentInfo;
+
 
 class ValidationService {
 
@@ -24,8 +23,8 @@ class ValidationService {
 		}
 	}
 	
-    def validateCandidateParams(String fname, String lname, String school, String graduationDate, String email,
-		String password, String secondPassword, String phoneNumber, char gender, String race,
+    def validateCandidateParams(String fname, String lname, String school, String graduationDate,
+		 String phoneNumber, char gender, String race,
 		String homeCountry, int fellowYear, List<Answer> answers, String homeState) {
 		
 		// Name
@@ -42,19 +41,6 @@ class ValidationService {
 		// Graduation Date
 		if (basicValidation(graduationDate, 3))// TODO: Verify Pattern Month/YEAR
 			return "Invalid Graduation Date"
-		
-		// EMail
-		if (basicValidation(email, 5))
-			return "E-Mail address too short"
-		
-		if (!email.contains(".") || !email.contains("@")) // TODO: Create a Pattern
-			return "Invalid E-Mail Address"
-		
-		// Passwords
-		if (basicValidation(password, 8))
-			return "Password too short"
-		if (secondPassword == null || secondPassword != password)
-			return "Re-typed password is wrong"
 		
 		// Phone Number
 		if (basicValidation(phoneNumber, 8))

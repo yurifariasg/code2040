@@ -4,7 +4,6 @@ import org.code2040.dashboard.Answer
 import org.code2040.dashboard.Candidate
 import org.code2040.dashboard.ApplicationStep
 import org.code2040.dashboard.Question
-import org.code2040.dashboard.RecruitmentInfo
 import org.code2040.dashboard.SecUserSecRole
 import org.code2040.dashboard.SecRole
 import org.code2040.dashboard.CandidateStatus
