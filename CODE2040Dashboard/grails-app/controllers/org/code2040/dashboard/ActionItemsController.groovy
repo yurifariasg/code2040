@@ -33,12 +33,13 @@ class ActionItemsController {
 			int commentId = params.commentId
 			Comment c = Comment.get(commentId)
 			if (c == null) {
-				render "Comment not found"
+				render "false"
 				return
 			}
 			c.resolved = true
 			c.approverManager = currentManagerId()
 			c.timeApproved = System.currentTimeMillis()
+			render "true"
 			
 		}
 		//accepts a candidate id adn a step and returns all comments
@@ -63,16 +64,16 @@ class ActionItemsController {
 			int id = params.id
 			Candidate can = Candidate.get(id)
 			if (can == null) {
-				render "Candidate not found"
+				render "false"
 				return
 			}
 			Comment com = new Comment()
 			com.comment = params.comment
 			com.step = params.step
 			com.author = currentManagerId()
-			com.save(flush:true)
+			com = com.save(flush:true)
 			can.comments.add (com)
-			if (can.hasErrors()) render "Errors with adding comments"
-			else render "Comments Added Sucessfully!"
+			if (com == null || can.save() == null || can.hasErrors()) render "false"
+			else render "true"
 		}
 }
