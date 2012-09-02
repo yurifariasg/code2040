@@ -19,7 +19,7 @@ class Candidate extends SecUser {
 	boolean skipped = false
 	
 	List<Answer> answers
-	ArrayList<Comment> comments
+	ArrayList<Comment> comments = new ArrayList<Comment>()
 	
 	long timeCreated = System.currentTimeMillis()
 	long timeModified = System.currentTimeMillis()

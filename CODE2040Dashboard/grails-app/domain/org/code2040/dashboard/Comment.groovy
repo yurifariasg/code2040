@@ -12,7 +12,6 @@ class Comment {
 	
 	
     static constraints = {
-		step minSize:3, blank:false, nullable:true
 		comment minSize:3, blank:false, nullable:true
     }
 }
