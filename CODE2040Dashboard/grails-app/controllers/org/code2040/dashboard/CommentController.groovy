@@ -33,6 +33,7 @@ class CommentController {
 		c.resolved = true
 		c.approverManager = currentManagerId()
 		c.timeApproved = System.currentTimeMillis()
+		c.save()
 		render "true"
 		
 	}
@@ -46,10 +47,11 @@ class CommentController {
 			return
 		}
 		List<Comment> comments = Comment.findAllWhere(step: c.currentStep, candidateId: c.id)
-		
 		render comments.collect { it ->
-			["author" : Manager.get(it.author).username, // TODO: Join the table to create less overhead here
-			"comment" : it.comment]
+			["id" : it.id,
+			"author" : Manager.get(it.author).username, // TODO: Join the table to create less overhead here
+			"comment" : it.comment,
+			"resolved" : it.resolved ? "true" : "false"]
 		} as JSON
 	}
 	
