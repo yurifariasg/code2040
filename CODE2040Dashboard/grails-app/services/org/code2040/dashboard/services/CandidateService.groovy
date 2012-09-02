@@ -14,7 +14,7 @@ import org.json.simple.JSONObject
 class CandidateService {
 	def springSecurityService
 	
-	def createCandidateA(String email, String password){
+	def createCandidate(String email, String password){
 		Candidate c = new Candidate()
 		c.username = email
 		c.password = password
@@ -32,36 +32,27 @@ class CandidateService {
 		
 		if (!c.hasErrors()) {
 			// This links the candidate with the role ROLE_USER
-			SecRole q = SecRole.findByAuthority("ROLE_USER")
-			SecUserSecRole.create(c, q)
+			SecUserSecRole.create c, SecRole.findByAuthority("ROLE_USER")
 		}
 		return c
 	}
-    def createCandidate(String fname, String lname, String school, String graduationDate, String email,
-		String password, String phoneNumber, char gender, String race, String homeCountry,
-		int fellowYear, List<Answer> answers, List<RecruitmentInfo> recruitmentInfo,
-		String homeState) {
-		Candidate c = new Candidate()
-		c.fname = fname
-		c.lname = lname
-		c.school = school
-		c.graduationDate = graduationDate
-		c.username = email // Username is the email
-		c.password = password // springSecurityService.encodePassword(password) //Kaleb's: securityService.createHash(password)
-		c.phoneNumber = phoneNumber
-		c.gender = gender
-		c.race = race
-		c.homeCountry = homeCountry
-		c.fellowYear = fellowYear
-		c.answers.addAll(answers)
-		c.homeState = homeState
-		c.save(flush: true)
-		
-		// This links the candidate with the role ROLE_USER
-		SecUserSecRole.create c, SecRole.findByAuthority("ROLE_USER")
-		
-		return c
-    }
+	
+	def setCandidateInfo(Candidate c, String fname, String lname, String school, String graduationDate,
+			String phoneNumber, char gender, String race, String homeCountry, String homeState,
+			ArrayList<Answer> answers) {
+			c.fname = fname;
+			c.lname = lname;
+			c.school= school;
+			c.graduationDate = graduationDate;
+			c.phoneNumber = phoneNumber;
+			c.gender = gender;
+			c.race = race;
+			c.homeCountry = homeCountry;
+			c.homeState = homeState;
+			c.answers = answers
+			c.needsReview = true
+			return (c.save(flush:true) != null)
+	}
 	
 	def approveCandidate(String cID, long staffID) {
 		Candidate c = getCandidate(cID)

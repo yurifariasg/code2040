@@ -63,7 +63,7 @@ class CandidateController {
 			 render view:'index', model:[error_message:err]
 			 return
 		}
-		Candidate c = candidateService.createCandidateA(email, password)
+		Candidate c = candidateService.createCandidate(email, password)
 		if (c.hasErrors()) {
 			def locale = Locale.getDefault()
 			for (fieldErrors in c.errors) {
@@ -114,24 +114,19 @@ class CandidateController {
 				gender, race, homeCountry, fellowYear, answers, homeState)
 			
 			if (err != null) {
-				render err
+				render(view:'application', model:[error:err])
 				return
 			}
-			Candidate c = candidateService.createCandidate(
-				fname, lname, school, graduationDate, email, password, phoneNumber,
-				gender, race, homeCountry, fellowYear, answers, homeState)
-			if (c.hasErrors()) {
-				def locale = Locale.getDefault()
-				for (fieldErrors in c.errors) {
-				   for (error in fieldErrors.allErrors) {
-				      String message = messageSource.getMessage(error, locale)
-					  render message
-					  return
-				   }
-				}
-			} else {
-				render "true"
+			
+			Candidate c = currentCandidate()
+			
+			if (!candidateService.setCandidateInfo(c, fname, lname, school,
+				graduationDate, phoneNumber, gender, race, homeCountry, homeState, answers)) {
+				render(view:'application', model:[error:"Error in Candidate Creation"])
+				return
 			}
+			
+			render "Step 1 Sucessfully Completed"
 		}
 	}
 	
