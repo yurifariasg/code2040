@@ -30,8 +30,8 @@ class ActionItemsController {
 		//accepts a comment id and marks it as resolved
 		@Secured(['ROLE_ADMIN'])
 		def resolve(){
-			int comemntId = params.commentId
-			Comment c = Comment.get(id)
+			int commentId = params.commentId
+			Comment c = Comment.get(commentId)
 			if (c == null) {
 				render "Comment not found"
 				return
@@ -70,6 +70,7 @@ class ActionItemsController {
 			com.comment = params.comment
 			com.step = params.step
 			com.author = currentManagerId()
+			com.save(flush:true)
 			can.comments.add (com)
 			if (can.hasErrors()) render "Errors with adding comments"
 			else render "Comments Added Sucessfully!"
