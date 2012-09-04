@@ -17,7 +17,7 @@
 				<h3 class="title">Search profiles</h3>
 				<input type="text" name="query" />
 				<button type="button">Search</button><br/>
-				<a href="master">Give me all profiles</a>
+				<a href="/master">Give me all profiles</a>
 				<div class="hidden">
 					<table class="search_results">
 					</table>

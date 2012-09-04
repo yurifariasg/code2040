@@ -8,6 +8,7 @@
 		<blueprint:resources/>
 	</head>
 	<body onLoad="javascript: onLoadHandler()">
+	
 		<div class="header">
 			<h1 class="site_title">CODE:2040</h1>
 			<h2 class="page_title">Step 1: Fill out application</h2>
