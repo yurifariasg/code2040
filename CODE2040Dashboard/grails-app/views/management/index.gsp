@@ -12,6 +12,13 @@
 			<h1 class="site_title">Staff</h1>
 			<h2 class="page_title">CODE:2040</h2>
 		</div>
+		<g:if test='${message}'>
+			<div class='login_message'>Message: ${message}</div>
+		</g:if>
+		<g:if test='${error_message}'>
+			<div class='login_message'
+			style="background-color: #FF0000; color: #FFFFFF">Error: ${error_message}</div>
+		</g:if>
 		<div class="content">
 			<div class="reg container" id="regCon">
 				<h3 class="reg title">Register</h3>

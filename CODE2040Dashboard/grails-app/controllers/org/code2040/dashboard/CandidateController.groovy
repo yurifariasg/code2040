@@ -1,9 +1,10 @@
 package org.code2040.dashboard
 
-import java.util.List
 import grails.converters.JSON
-import org.codehaus.groovy.grails.web.json.JSONObject
 import grails.plugins.springsecurity.Secured
+
+import org.codehaus.groovy.grails.web.json.JSONObject
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper
 
 
 class CandidateController {
@@ -12,7 +13,6 @@ class CandidateController {
 	def messageSource
 	def springSecurityService
 	def validationService
-	def emailConfirmationService
 	def securityService
 	
 	private currentCandidate() {
@@ -23,26 +23,23 @@ class CandidateController {
 		return Manager.get(springSecurityService.principal.id)
 	}
 	
-    def index() { 
+    def index() {
+		if (springSecurityService.principal != 'anonymousUser') {
+			for (String s : springSecurityService.getPrincipal().getAuthorities())
+				if (s == 'ROLE_USER')
+					redirect(action:"application")
+		}
 	}
 	
-	def emailconfirmation() {
-		String email = params.email
-		long uid
-		try {
-			uid = Long.parseLong(params.uid)
-		} catch (Exception e) {
-			uid = -1
-		}
-		
-		if (uid == -1 || email == null) {
-			render "Couldnt verify your account"	
-		} else {
-			Candidate c = Candidate.get(uid)
-			c.enabled = true
-			c.save(flush: true)
-			render "Account Sucessfully Verified"	
-		}
+	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
+	def show() {
+		Candidate c = Candidate.get(params.id)
+		[candidate:c]
+	}
+	
+	@Secured(['ROLE_USER'])
+	def me() {
+		redirect(action:"show", [currentCandidate().id])
 	}
 	
 	def login() {
@@ -74,19 +71,10 @@ class CandidateController {
 			   }
 			}
 		} else {
-			if (c.username.endsWith('@code2040.org')) {
-				emailConfirmationService.sendConfirmation(c.username, // Username == Email
-				  "E-Mail Confirmation", [view:'/emailconfirmation/mail/confirmationRequest'],
-				  String.valueOf(c.id))
-				c.enabled = false
-				c.save()
-				render(params:[message:"Please, verify your email"])
-			} else {
-				c.enabled = true
-				c.save(flush:true)
-				securityService.autoLogin(c.username, password)
-				redirect(controller:'candidate', action:'application')
-			}
+			c.enabled = true
+			c.save(flush:true)
+			securityService.autoLogin(c.username, password)
+			redirect(controller:'candidate', action:'application')
 		}
 	}
 	

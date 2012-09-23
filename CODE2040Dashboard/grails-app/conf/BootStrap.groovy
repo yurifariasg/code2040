@@ -18,17 +18,17 @@ class BootStrap {
 			log.info("User with id $uid has confirmed their email address $email")
 			// now do something…
 			// Then return a map which will redirect the user to this destination
-			return [controller:'candidate', action:'emailconfirmation', params: [email : email, uid : uid]]
+			return [controller:'management', action:'emailconfirmation', params: [email : email, uid : uid]]
 		  }
 		  emailConfirmationService.onInvalid = { uid ->
 			log.warn("User with id $uid failed to confirm email address after 30 days")
 			// The email was already confirmed...
-			return [controller:'candidate', action:'emailconfirmation', params: [email : 'INVALID', uid : 'ONINVALID']]
+			return [controller:'management', action:'emailconfirmation', params: [email : 'INVALID', uid : 'ONINVALID']]
 		  }
 		  emailConfirmationService.onTimeout = { email, uid ->
 			 log.warn("User with id $uid failed to confirm email address after 30 days")
 			 // User took too long...
-			return [controller:'candidate', action:'emailconfirmation', params: [email : 'INVALID', uid : 'ONTIMEOUT']]
+			return [controller:'management', action:'emailconfirmation', params: [email : 'INVALID', uid : 'ONTIMEOUT']]
 		  }
 		
 		  // Dummy Users

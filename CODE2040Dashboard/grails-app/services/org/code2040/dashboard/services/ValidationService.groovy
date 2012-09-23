@@ -23,6 +23,27 @@ class ValidationService {
 		}
 	}
 	
+	def validateManagerCreate(String email, String password, String secondPassword){
+		if (email == null){
+			return "Email is blank"
+		}
+		
+		if (!email.endsWith("code2040.org") && !email.endsWith("@gmail.com")) {
+			return "Not a valid code2040.org e-mail"
+		}
+		
+		if (password == null){
+			return "Email is blank"
+		}
+		if (secondPassword == null){
+			return "Confirmation Password is blank"
+		}
+		
+		if (password != secondPassword){
+			return "Passwords doesn't match"
+		}
+	}
+	
     def validateCandidateParams(String fname, String lname, String school, String graduationDate,
 		 String phoneNumber, char gender, String race,
 		String homeCountry, int fellowYear, List<Answer> answers, String homeState) {
