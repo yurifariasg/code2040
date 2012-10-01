@@ -2157,7 +2157,7 @@ function onLoadHandler()
 "The Wright Institute",
 "Wright State University"];
 	
-	var country_ref_list = ["OTHER", "AFGHANISTAN",
+	var country_ref_list = ["Other", "AFGHANISTAN",
 	                        "ÅLAND ISLANDS",
 	                        "ALBANIA",
 	                        "ALGERIA",
@@ -2411,6 +2411,8 @@ function onLoadHandler()
 		var option = document.createElement('option');
 		var option_text = document.createTextNode(country_ref_list[i]);
 		option.appendChild(option_text);
+		option.value = country_ref_list[i];
+		if (i == 1) option.selected = "selected";
 		document.getElementById("app_country").appendChild(option);
 	}
 	
@@ -2423,6 +2425,8 @@ function onLoadHandler()
 			var college_option = document.createElement('option');
 			var college_option_text = document.createTextNode(college_reference_list[i]);
 			college_option.appendChild(college_option_text);
+			college_option.value = college_reference_list[i];
+			if (i == 1) college_option.selected = "selected";
 			college_ddm.appendChild(college_option);
 		}
 	}
@@ -2433,5 +2437,26 @@ function limitText(limitField, limitCount, limitNum) {
 		limitField.value = limitField.value.substring(0, limitNum);
 	} else {
 		limitCount.value = limitNum - limitField.value.length;
+	}
+}
+
+function checkSelection(DDMTag, hiddenElemID) {
+	if (DDMTag.selectedIndex != -1) {
+		var text = DDMTag.options[DDMTag.selectedIndex].text;
+		var hiddenTextInput = document.getElementById(hiddenElemID);
+		if (text == "Other") {
+			hiddenTextInput.className = "";
+		} else {
+			hiddenTextInput.className = "hidden";
+		}
+	}
+}
+
+function showOrHideHiddenInput(checkboxTag, hiddenElemID) {
+	var hiddenTextInput = document.getElementById(hiddenElemID);
+	if (checkboxTag.checked == true) {
+		hiddenTextInput.className = "";
+	} else {
+		hiddenTextInput.className = "hidden";
 	}
 }
